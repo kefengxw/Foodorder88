@@ -23,12 +23,16 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
 
     override lateinit var mImageView: UnifiedImageView
     private lateinit var mUpdateBtn: UnifiedButton
+    private lateinit var mUseAccount: UnifiedTextView
+    private lateinit var mUseName: UnifiedTextView
+    private lateinit var mDeleteAccountBtn: UnifiedButton
     private lateinit var mEditTextNickName: UnifiedEditText
     private lateinit var mEditTextCompanyName: UnifiedEditText
     private lateinit var mEditTextRestaurantName: UnifiedEditText
     private lateinit var mEditTextRestaurantAddr: UnifiedEditText
     private lateinit var mEditTextRestaurantFloor: UnifiedEditText
     private lateinit var mEditTextCuisineName: UnifiedEditText
+    private val mProgressInfo = ProgressInfo(this)
 
     private lateinit var mSpinnerSquare: UnifiedSpinnerHandle
     private lateinit var mSpinnerTableNum: UnifiedSpinnerHandle
@@ -40,18 +44,22 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
     private lateinit var mBreakfastCheck: UnifiedCheckedTextView
     private lateinit var mLunchCheck: UnifiedCheckedTextView
     private lateinit var mDinnerCheck: UnifiedCheckedTextView
-    private var mBreakfast: String = ""
-    private var mLunch: String = ""
-    private var mDinner: String = ""
     private lateinit var mBreakfastBuffet: SwitchCompat
     private lateinit var mLunchBuffet: SwitchCompat
     private lateinit var mDinnerBuffet: SwitchCompat
+    private var mBreakfast: String = ""
+    private var mLunch: String = ""
+    private var mDinner: String = ""
 
-    private val mProgressInfo = ProgressInfo(this)
+    private var mSquare: String = ""
+    private var mTableNum: String = ""
+    private var mEmployeeNum: String = ""
+
     private var mLocalImageAddr: String = ""
     private var mRemoteImageAddr: String = ""
     private var mRemoteImagePath: String = ""
 
+    lateinit var mRemoteData: UpdateRemoteUserDataUnit
 
     companion object {
         fun startEditProfileActivity(ctx: Context) {
@@ -83,6 +91,8 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
 
     override fun initView() {
         mUpdateBtn = update_button
+        mUseAccount = user_account
+        mUseName = user_name
         mImageView = logo_image
         mEditTextNickName = nickname
         mEditTextCompanyName = enterprise_name
@@ -114,6 +124,7 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
 
     override fun initListener() {
         mUpdateBtn.setOnClickListener(updateBtnListener)
+        mDeleteAccountBtn.setOnClickListener(deleteBtnListener)
 
         mBreakfastCheck.setOnClickListener(checkListener)
         mLunchCheck.setOnClickListener(checkListener)
@@ -131,7 +142,12 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
         val y = "Failed to update the profile..."
         mProgressInfo.progressInfoSetText(x, y)
 
-        getUserProfileFromRemote()
+        val it = getUserProfileFromRemote()
+        if (it != true) {
+            //failed to get remote data
+        } else {
+            handleRemoteUserProfile()
+        }
     }
 
     override fun initOnStart() {
@@ -140,15 +156,15 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
 
     private fun initSpinnerList() {
         //可以被优化，后续可以从firebase读取
-        mSpinnerListSquare.add(UnifiedSpinnerItem("01 to 10"))//必须小写，和数据库一致，后续可以显示，数据库分开
-        mSpinnerListSquare.add(UnifiedSpinnerItem("10 to 30"))//还需要考虑系统语言变化的情况下，怎么办？需要系统资源的配合，而不全部是hard coding
-        mSpinnerListSquare.add(UnifiedSpinnerItem("30 to ~~~"))
-        mSpinnerListTableNum.add(UnifiedSpinnerItem("01 to 05"))//必须小写，和数据库一致，后续可以显示，数据库分开
-        mSpinnerListTableNum.add(UnifiedSpinnerItem("06 to 20"))//还需要考虑系统语言变化的情况下，怎么办？需要系统资源的配合，而不全部是hard coding
-        mSpinnerListTableNum.add(UnifiedSpinnerItem("21 to ~~~"))
-        mSpinnerListEmployeeNum.add(UnifiedSpinnerItem("01 to 05"))//必须小写，和数据库一致，后续可以显示，数据库分开
-        mSpinnerListEmployeeNum.add(UnifiedSpinnerItem("06 to 20"))//还需要考虑系统语言变化的情况下，怎么办？需要系统资源的配合，而不全部是hard coding
-        mSpinnerListEmployeeNum.add(UnifiedSpinnerItem("21 to ~~~"))
+        mSpinnerListSquare.add(UnifiedSpinnerItem("01 ~ 10"))//必须小写，和数据库一致，后续可以显示，数据库分开
+        mSpinnerListSquare.add(UnifiedSpinnerItem("10 ~ 30"))//还需要考虑系统语言变化的情况下，怎么办？需要系统资源的配合，而不全部是hard coding
+        mSpinnerListSquare.add(UnifiedSpinnerItem("30 ~ "))
+        mSpinnerListTableNum.add(UnifiedSpinnerItem("01 ~ 05"))//必须小写，和数据库一致，后续可以显示，数据库分开
+        mSpinnerListTableNum.add(UnifiedSpinnerItem("06 ~ 20"))//还需要考虑系统语言变化的情况下，怎么办？需要系统资源的配合，而不全部是hard coding
+        mSpinnerListTableNum.add(UnifiedSpinnerItem("21 ~"))
+        mSpinnerListEmployeeNum.add(UnifiedSpinnerItem("01 ~ 05"))//必须小写，和数据库一致，后续可以显示，数据库分开
+        mSpinnerListEmployeeNum.add(UnifiedSpinnerItem("06 ~ 20"))//还需要考虑系统语言变化的情况下，怎么办？需要系统资源的配合，而不全部是hard coding
+        mSpinnerListEmployeeNum.add(UnifiedSpinnerItem("21 ~"))
     }
 
     private fun initSpinner() {
@@ -183,19 +199,48 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
         }
     }
 
-    private fun getUserProfileFromRemote() {
+    private fun getUserProfileFromRemote(): Boolean {
 
+        //mRemoteData =
         //校验数据
+        return true
     }
 
-    private fun getHnadleRemoteUserProfile() {
-
+    private fun handleRemoteUserProfile() {
         //校验数据
+        mRemoteData
 
-        if (true) {
+        mEditTextNickName.setText(mRemoteData.nickName)
+        mEditTextCompanyName.setText(mRemoteData.companyName)
+        mEditTextRestaurantName.setText(mRemoteData.restaurantName)
+        mEditTextRestaurantAddr.setText(mRemoteData.restaurantAddr)
+        mEditTextRestaurantFloor.setText(mRemoteData.restaurantFloor)
+        mEditTextCuisineName.setText(mRemoteData.cuisineName)
 
-            displayImageWithAddr(mRemoteImageAddr)
+        handleRemoteCheck(mRemoteData.breakfast, mBreakfastCheck, mBreakfastBuffet)
+        handleRemoteCheck(mRemoteData.lunch, mLunchCheck, mLunchBuffet)
+        handleRemoteCheck(mRemoteData.dinner, mDinnerCheck, mDinnerBuffet)
+
+
+
+        displayImageWithAddr(mRemoteImageAddr)
+    }
+
+    private fun handleRemoteCheck(type: String, check: UnifiedCheckedTextView, buffet: SwitchCompat) {
+
+        if (type == "") {
+            check.isChecked = false
+            buffet.isEnabled = check.isChecked
+            return
         }
+
+        check.isChecked = true
+        buffet.isEnabled = check.isChecked
+        buffet.isChecked = type.contains("Buffet")
+    }
+
+    private fun handleRemoteSpinner() {
+
     }
 
     private val updateBtnListener = object : View.OnClickListener {
@@ -214,12 +259,12 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
                     mEditTextRestaurantAddr.text.toString().trim(),
                     mEditTextRestaurantFloor.text.toString().trim(),
                     mEditTextCuisineName.text.toString().trim(),
-                    mBreakfastCheck.text.toString().trim(),
-                    mLunchCheck.text.toString().trim(),
-                    mDinnerCheck.text.toString().trim(),
-                    "01 to 10",
-                    "01 to 05",
-                    "01 to 05",
+                    mBreakfast,
+                    mLunch,
+                    mDinner,
+                    mSquare,
+                    mTableNum,
+                    mEmployeeNum,
                     "",
                     ""
                 ),
@@ -323,16 +368,22 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
         return if (buffet.isChecked) (type + "Buffet") else type
     }
 
+    private val deleteBtnListener = object : View.OnClickListener {
+        override fun onClick(view: View?) {
+            showToast("delete Btn Listener started!")
+        }
+    }
+
     override fun spinnerResult(type: UnifiedSpinnerHandle, item: UnifiedSpinnerItem) {
         when (type) {
             mSpinnerSquare -> {
-                showToast("---${item.mSpinnerItem}--- is selected")
+                mSquare = item.mSpinnerItem
             }
             mSpinnerTableNum -> {
-                showToast("---${item.mSpinnerItem}--- is selected")
+                mTableNum = item.mSpinnerItem
             }
             mSpinnerEmployeeNum -> {
-                showToast("---${item.mSpinnerItem}--- is selected")
+                mEmployeeNum = item.mSpinnerItem
             }
         }
     }

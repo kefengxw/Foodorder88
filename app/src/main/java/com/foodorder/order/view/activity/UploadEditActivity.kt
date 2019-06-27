@@ -15,8 +15,6 @@ import com.foodorder.order.model.data.ReturnCode.*
 import com.foodorder.order.model.data.Status
 import com.foodorder.order.model.data.Status.LOADING
 import com.foodorder.order.model.firebase.FirebaseResult
-import com.foodorder.order.view.componet.UploadLocalFoodDataUnit
-import com.foodorder.order.view.componet.UploadRemoteFoodDataUnit
 import com.foodorder.order.view.adapter.OverviewItem
 import com.foodorder.order.view.componet.*
 import com.foodorder.order.viewmodel.UploadEditViewModel
@@ -150,15 +148,7 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
 
         val it = decodeBundleData(this@UploadEditActivity)
         if (it != null) {
-            mUniqueId = it.uniqueId
-            mEditTextName.setText(it.name)
-            mRemoteImageAddr = it.imageAddr
-            mRemoteImagePath = it.imagePath
-            mEditTextPrice.setText(it.price)
-            mEditTextDesc.setText(it.description)
-            mCategory = it.category
-            //mPriority = it.priority//后续待优化
-            displayImageWithAddr(mRemoteImageAddr)
+            handleRemoteFoodData(it)
         } else {
             mCategory = decodeCategoryData(this@UploadEditActivity)
         }
@@ -169,6 +159,18 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
 
         //initSpinner()
         initNumberPicker()
+    }
+
+    private fun handleRemoteFoodData(it: OverviewItem) {
+        mUniqueId = it.uniqueId
+        mEditTextName.setText(it.name)
+        mRemoteImageAddr = it.imageAddr
+        mRemoteImagePath = it.imagePath
+        mEditTextPrice.setText(it.price)
+        mEditTextDesc.setText(it.description)
+        mCategory = it.category
+        //mPriority = it.priority//后续待优化
+        displayImageWithAddr(mRemoteImageAddr)
     }
 
 //    private fun initSpinner() {

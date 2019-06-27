@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/welcome_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay"
+        android:background="@color/colorPrimaryDark">
+    <!--android:overScrollMode="ifContentScrolls"-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.foodorder.order.view.componet.UnifiedTextView
+                android:id="@+id/welcome_word_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Welcome to Sjön1234567890"
+                android:textSize="36sp"
+                android:textAlignment="center"
+                app:layout_constraintHorizontal_weight="0.8"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.foodorder.order.view.componet.UnifiedImageView
+                android:id="@+id/welcome_logo_image"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/logo"
+                android:scaleType="fitCenter"
+                app:layout_constraintHorizontal_weight="0.2"
+                app:layout_constraintStart_toEndOf="@+id/welcome_word_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/welcome_word_text"
+                app:layout_constraintBottom_toBottomOf="@+id/welcome_word_text"/>
+
+        <com.foodorder.order.view.componet.UnifiedImageView
+                android:id="@+id/overview_outside_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/logo"
+                android:scaleType="fitCenter"
+                android:layout_margin="8dp"
+                app:layout_constraintDimensionRatio="h,1:1"
+                app:layout_constraintTop_toBottomOf="@+id/welcome_word_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_h_half"/>
+
+        <com.foodorder.order.view.componet.UnifiedImageView
+                android:id="@+id/overview_inside_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/logo"
+                android:scaleType="fitCenter"
+                app:layout_constraintTop_toTopOf="@+id/overview_outside_image"
+                app:layout_constraintBottom_toBottomOf="@+id/overview_outside_image"
+                app:layout_constraintStart_toStartOf="@+id/guideline_h_half"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_h_half"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"/>
+
+        <com.foodorder.order.view.componet.UnifiedTextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Name and Name"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@+id/overview_outside_image"/>
+
+        <com.foodorder.order.view.componet.UnifiedTextView
+                android:id="@+id/sub_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Pilvägen 50, Sollentuna"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/address"/>
+
+        <com.foodorder.order.view.componet.UnifiedTextView
+                android:id="@+id/introduction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Med två Bocuse d’Or-medaljer och ett EM-guld på meritlistan hos kock-teamet är kvalitén på maten minst lika hög som ambitionen, utan att för den skull göra avkall på den avslappnade stämningen.
+Allt levererat i en stilren och inbjudande miljö med Vättern precis utanför fönstren. På sommaren flyttas större delen av verksamheten ut på terrassen och uteköket med god mat och skön atmosfär i fokus.
+Under vinter-halvåret höjs ribban i köket och Sjön erbjuder en större och en mindre meny av hög nationell klass, med rena smaker styrda efter säsong och råvaror av högsta kvalité. Ekologiskt och lokalt producerat så långt det är möjligt - men alltid med högsta kvalité som utgångspunkt.
+Restaurang Sjön har plats för ca 100 matgäster inomhus och lika många på terassen sommartid. Vi arrangerar gärna stora evenemang som företagsfester och middagar, bröllop och andra tillställningar. Tveka inte att kontakta oss för mer information!
+Sjön startades av Tommy Myllymäki och drivs nu av  Niklas Schönborg, Erik Beckman, Fred Lindberg, Frida Lindberg och Tomas Hinas"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/sub_address"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

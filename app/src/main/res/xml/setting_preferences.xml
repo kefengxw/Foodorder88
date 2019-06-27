@@ -1,0 +1,112 @@
+<androidx.preference.PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+            app:title="Ownership">
+
+        <Preference
+                app:key="profile"
+                app:title="Profile"
+                app:summary="Edit Profile "/>
+
+        <Preference
+                app:key="logout"
+                app:title="logout Profile"
+                app:summary="logout Profile "/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            app:title="Role of This Device">
+
+        <ListPreference
+                app:key="role"
+                app:title="Default role is Manager"
+                app:icon="@drawable/logo"
+                app:entries="@array/entries"
+                app:entryValues="@array/values"
+                app:defaultValue="manager"
+                app:useSimpleSummaryProvider="true"/>
+
+        <EditTextPreference
+                app:key="table"
+                app:title="Table No."
+                app:shouldDisableView="true"
+                app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            app:key="upload"
+            app:title="Upload the Food(Picture and Description)">
+
+        <Preference
+                app:key="uploadWelcome"
+                app:title="Upload Welcome Sheet"
+                app:summary="1.2.3451"/>
+        <Preference
+                app:key="uploadSpecial"
+                app:title="Upload Special Sheet"
+                app:summary="1.2.3452"/>
+        <Preference
+                app:key="uploadStarter"
+                app:title="Upload Starter Sheet"
+                app:summary="1.2.3453"/>
+        <Preference
+                app:key="uploadMainCourse"
+                app:title="Upload Main Course Sheet"
+                app:summary="1.2.3454"/>
+        <Preference
+                app:key="uploadDessert"
+                app:title="Upload Dessert Sheet"
+                app:summary="1.2.3455"/>
+        <Preference
+                app:key="uploadWineDrink"
+                app:title="Upload Wine Drink Sheet"
+                app:summary="1.2.3456"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            app:key="allSheet"
+            app:title="Show the Sheet">
+
+        <CheckBoxPreference
+                app:key="special"
+                app:disableDependentsState="true"
+                app:title="Special Sheet"/>
+        <CheckBoxPreference
+                app:key="wineDrink"
+                app:dependency="role"
+                app:title="@string/wine_drink_sheet"/>
+        <CheckBoxPreference
+                app:key="concept"
+                android:defaultValue="true"
+                app:title="Concept Sheet"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            app:title="Others">
+
+        <SwitchPreferenceCompat
+                app:key="download"
+                app:title="Auto Upgrade App"/>
+
+        <SwitchPreferenceCompat
+                app:key="debug"
+                app:title="Open Debug to fix Bug"
+                app:summaryOn="Only collect bug info"
+                app:summaryOff="Open Debug to improve app experience"/>
+
+        <!--app:dependency="sync"-->
+
+        <Preference
+                app:key="version"
+                app:title="Build Version"
+                app:summary="1.2.345"/>
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

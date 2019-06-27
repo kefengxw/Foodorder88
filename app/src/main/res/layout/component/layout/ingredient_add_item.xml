@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ingredient"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_h1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.35"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_h2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_h3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85"/>
+
+    <com.foodorder.order.view.componet.UnifiedImageView
+            android:id="@+id/ingredient_image_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline_h1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="h,1:0.618"
+            android:background="@color/colorGray"
+            android:visibility="gone"
+            android:layout_margin="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
+    <com.foodorder.order.view.componet.UnifiedEditText
+            android:id="@+id/ingredient_text_left"
+            app:layout_constraintStart_toStartOf="@id/guideline_h1"
+            app:layout_constraintEnd_toStartOf="@id/guideline_h2"
+            app:layout_constraintTop_toTopOf="@id/ingredient_image_left"
+            app:layout_constraintBottom_toBottomOf="@id/ingredient_image_left"
+            android:visibility="gone"
+            android:background="@color/colorGray"
+            android:layout_margin="8dp"
+            android:text="30g"
+            android:textSize="@dimen/ingredient_layout_text_size"
+            android:textAlignment="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    <com.foodorder.order.view.componet.UnifiedImageView
+            android:id="@+id/ingredient_image_right"
+            app:layout_constraintStart_toStartOf="@id/guideline_h2"
+            app:layout_constraintEnd_toStartOf="@id/guideline_h3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="h,1:0.618"
+            android:background="@color/colorGray"
+            android:visibility="gone"
+            android:layout_margin="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
+    <com.foodorder.order.view.componet.UnifiedEditText
+            android:id="@+id/ingredient_text_right"
+            app:layout_constraintStart_toStartOf="@id/guideline_h3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ingredient_image_left"
+            app:layout_constraintBottom_toBottomOf="@id/ingredient_image_left"
+            android:background="@color/colorGray"
+            android:visibility="gone"
+            android:layout_margin="8dp"
+            android:text="50g"
+            android:textSize="@dimen/ingredient_layout_text_size"
+            android:textAlignment="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    <com.foodorder.order.view.componet.UnifiedImageView
+            android:id="@+id/ingredient_add_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_h2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="h,1:0.4326"
+            android:layout_margin="8dp"
+            android:background="@color/colorGray"
+            android:visibility="visible"
+            android:src="@drawable/ic_add"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
+    <com.foodorder.order.view.componet.UnifiedImageView
+            android:id="@+id/ingredient_add_right"
+            app:layout_constraintStart_toStartOf="@id/guideline_h2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="h,1:0.4326"
+            android:layout_margin="8dp"
+            android:background="@color/colorGray"
+            android:visibility="gone"
+            android:src="@drawable/ic_add"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/upload_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorYellow"
+        tools:context=".view.activity.UploadEditActivity">
+
+    <include
+            android:id="@+id/upload_edit_tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/tool_bar"/>
+
+    <include
+            android:id="@+id/upload_edit_progress_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/upload_edit_tool_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            layout="@layout/progress_info"/>
+
+    <androidx.core.widget.NestedScrollView
+            android:id="@+id/upload_scroll_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/upload_edit_tool_bar"
+            app:layout_constraintBottom_toTopOf="@id/upload_cancel"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="outsideOverlay">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/item_detail"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <!--android:focusable="true"-->
+            <!--android:focusableInTouchMode="true"-->
+
+            <com.foodorder.order.view.componet.UnifiedImageView
+                    android:id="@+id/upload_image"
+                    android:src="@drawable/ic_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="8dp"
+                    android:background="@color/colorGray"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintDimensionRatio="1:0.618"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/name_label"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/name_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/name_edit_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/name_edit_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/name_edit_text"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Food Name"/>
+
+            <com.foodorder.order.view.componet.UnifiedEditText
+                    android:id="@+id/name_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:maxLines="1"
+                    app:layout_constraintTop_toBottomOf="@+id/upload_image"
+                    app:layout_constraintBottom_toTopOf="@+id/describe_edit_text"
+                    app:layout_constraintStart_toEndOf="@+id/name_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:hint="Food name1234567890"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/describe_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/describe_edit_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/describe_edit_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/describe_edit_text"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Description"/>
+
+            <com.foodorder.order.view.componet.UnifiedEditText
+                    android:id="@+id/describe_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    app:layout_constraintTop_toBottomOf="@+id/name_edit_text"
+                    app:layout_constraintBottom_toTopOf="@+id/category_edit_spinner"
+                    app:layout_constraintStart_toEndOf="@+id/describe_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:hint="Food describe1234567890"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/category_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/category_edit_spinner"
+                    app:layout_constraintBottom_toBottomOf="@+id/category_edit_spinner"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/category_edit_spinner"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Category"/>
+
+            <com.foodorder.order.view.componet.UnifiedSpinnerView
+                    android:id="@+id/category_edit_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:maxLines="1"
+                    app:layout_constraintTop_toBottomOf="@+id/describe_edit_text"
+                    app:layout_constraintBottom_toTopOf="@+id/price_edit_text"
+                    app:layout_constraintStart_toEndOf="@+id/category_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:hint="Category spinner"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/price_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/price_edit_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/price_edit_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/price_edit_text"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Price(Sek)"/>
+
+            <com.foodorder.order.view.componet.UnifiedEditText
+                    android:id="@+id/price_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:inputType="number"
+                    app:layout_constraintTop_toBottomOf="@+id/describe_edit_text"
+                    app:layout_constraintBottom_toTopOf="@+id/display_priority"
+                    app:layout_constraintStart_toEndOf="@+id/price_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:hint="150"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/display_priority_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/display_priority"
+                    app:layout_constraintBottom_toBottomOf="@+id/display_priority"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/display_priority"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Display Priority"/>
+
+            <com.foodorder.order.view.componet.UnifiedNumberPicker
+                    android:id="@+id/display_priority"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/price_edit_text"
+                    app:layout_constraintBottom_toTopOf="@+id/ingredient_label"
+                    app:layout_constraintStart_toEndOf="@+id/display_priority_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:textSize="16sp"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/ingredient_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/display_priority"
+                    app:layout_constraintBottom_toTopOf="@+id/ingredient1"
+                    android:textSize="16sp"
+                    android:text="Ingredient(Max 16)"/>
+
+            <include
+                    android:id="@+id/ingredient1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/ingredient_label"
+                    app:layout_constraintBottom_toTopOf="@+id/ingredient2"
+                    layout="@layout/ingredient_add_item"/>
+
+            <include
+                    android:id="@+id/ingredient2"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/ingredient1"
+                    app:layout_constraintBottom_toTopOf="@+id/ingredient3"
+                    layout="@layout/ingredient_add_item"/>
+
+            <include
+                    android:id="@+id/ingredient3"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/ingredient2"
+                    app:layout_constraintBottom_toTopOf="@+id/ingredient4"
+                    layout="@layout/ingredient_add_item"/>
+
+            <include
+                    android:id="@+id/ingredient4"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/ingredient3"
+                    app:layout_constraintBottom_toTopOf="@+id/ingredient5"
+                    layout="@layout/ingredient_add_item"/>
+
+            <include
+                    android:id="@+id/ingredient5"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/ingredient4"
+                    app:layout_constraintBottom_toTopOf="@+id/ingredient6"
+                    layout="@layout/ingredient_add_item"/>
+
+            <include
+                    android:id="@+id/ingredient6"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/ingredient5"
+                    app:layout_constraintBottom_toTopOf="@+id/ingredient7"
+                    layout="@layout/ingredient_add_item"/>
+
+            <include
+                    android:id="@+id/ingredient7"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/ingredient6"
+                    app:layout_constraintBottom_toTopOf="@+id/ingredient8"
+                    layout="@layout/ingredient_add_item"/>
+
+            <include
+                    android:id="@+id/ingredient8"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/ingredient7"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    layout="@layout/ingredient_add_item"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.foodorder.order.view.componet.UnifiedButton
+            android:id="@+id/upload_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/upload_submit"
+            app:layout_constraintTop_toBottomOf="@+id/upload_scroll_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAllCaps="false"
+            android:text="Cancel"/>
+
+    <com.foodorder.order.view.componet.UnifiedButton
+            android:id="@+id/upload_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/upload_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/upload_cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/upload_cancel"
+            android:textAllCaps="false"
+            android:text="Upload"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

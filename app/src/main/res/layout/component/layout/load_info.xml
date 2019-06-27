@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+    <com.foodorder.order.view.componet.UnifiedTextView
+            android:id="@+id/load_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/loading_info"
+            android:textColor="@color/colorRed"
+            android:textSize="@dimen/state_text_size"/>
+
+    <com.foodorder.order.view.componet.UnifiedTextView
+            android:id="@+id/load_fail_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/loading_failed"
+            android:textColor="@color/colorRed"
+            android:textSize="@dimen/state_text_size"/>
+
+</merge>

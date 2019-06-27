@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/wine_drink_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay"
+        android:background="@color/colorRed">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <include
+                android:id="@+id/wine_drink_order_item_ov1"
+                layout="@layout/order_item_overview"/>
+
+        <include
+                android:id="@+id/wine_drink_order_item_ov2"
+                layout="@layout/order_item_overview"/>
+
+        <include
+                android:id="@+id/wine_drink_order_item_ov3"
+                layout="@layout/order_item_overview"/>
+
+        <include
+                android:id="@+id/wine_drink_order_item_ov4"
+                layout="@layout/order_item_overview"/>
+
+        <include
+                android:id="@+id/wine_drink_order_item_ov5"
+                layout="@layout/order_item_overview"/>
+
+        <include
+                android:id="@+id/wine_drink_order_item_ov6"
+                layout="@layout/order_item_overview"/>
+
+        <include
+                android:id="@+id/wine_drink_order_item_ov7"
+                layout="@layout/order_item_overview"/>
+
+        <include
+                android:id="@+id/wine_drink_order_item_ov8"
+                layout="@layout/order_item_overview"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>

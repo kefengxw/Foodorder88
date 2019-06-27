@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/submit_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorYellow"
+        tools:context=".view.activity.SubmitActivity">
+
+    <include
+            android:id="@+id/submit_tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/tool_bar"/>
+
+    <androidx.core.widget.NestedScrollView
+            android:id="@+id/submit_scroll_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/submit_tool_bar"
+            app:layout_constraintBottom_toTopOf="@id/submit_cancel"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+                android:id="@+id/item_detail"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <com.foodorder.order.view.componet.UnifiedImageView
+                    android:id="@+id/logo_image"
+                    android:src="@drawable/logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/username_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:hint="Username"/>
+
+            <include
+                    android:id="@+id/ingredient1"
+                    layout="@layout/ingredient_add_item"/>
+
+            <include
+                    android:id="@+id/ingredient2"
+                    layout="@layout/ingredient_add_item"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.foodorder.order.view.componet.UnifiedTextView
+            android:id="@+id/submit_total_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/submit_total_number"
+            app:layout_constraintTop_toBottomOf="@+id/submit_scroll_layout"
+            app:layout_constraintBottom_toTopOf="@+id/submit_order"
+            android:text="Total:"/>
+
+    <com.foodorder.order.view.componet.UnifiedTextView
+            android:id="@+id/submit_total_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/submit_total_text"
+            app:layout_constraintEnd_toStartOf="@+id/submit_total_currency"
+            app:layout_constraintTop_toBottomOf="@+id/submit_scroll_layout"
+            app:layout_constraintBottom_toTopOf="@+id/submit_order"
+            app:layout_constraintHorizontal_bias="0.8"
+            android:text="200"/>
+
+    <com.foodorder.order.view.componet.UnifiedTextView
+            android:id="@+id/submit_total_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/submit_total_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/submit_scroll_layout"
+            app:layout_constraintBottom_toTopOf="@+id/submit_order"
+            android:text="Sek"/>
+
+    <com.foodorder.order.view.componet.UnifiedButton
+            android:id="@+id/submit_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/submit_order"
+            app:layout_constraintTop_toBottomOf="@+id/submit_total_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAllCaps="false"
+            android:text="Cancel"/>
+
+    <com.foodorder.order.view.componet.UnifiedButton
+            android:id="@+id/submit_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/submit_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/submit_total_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAllCaps="false"
+            android:text="Submit"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

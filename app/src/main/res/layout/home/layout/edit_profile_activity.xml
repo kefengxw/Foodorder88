@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/upload_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorYellow"
+        tools:context=".view.activity.EditProfileActivity">
+
+    <include
+            android:id="@+id/edit_profile_tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/tool_bar"/>
+
+    <androidx.core.widget.NestedScrollView
+            android:id="@+id/edit_profile_scroll_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_tool_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="outsideOverlay">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorGreen">
+
+            <com.foodorder.order.view.componet.UnifiedImageView
+                    android:id="@+id/logo_image"
+                    android:src="@drawable/ic_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="8dp"
+                    android:background="@color/colorGray"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintDimensionRatio="1:0.618"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/user_account"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/user_account_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/user_account"
+                    app:layout_constraintBottom_toBottomOf="@+id/user_account"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/user_account"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="UserAccount"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/user_account"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/logo_image"
+                    app:layout_constraintBottom_toTopOf="@+id/user_name"
+                    app:layout_constraintStart_toEndOf="@+id/user_account_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:textSize="16sp"
+                    android:text="Ct4HsLsBnCMh4ozvcVapCO1Rx2k1"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/user_name_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/user_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/user_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/user_name"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="UserName"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/user_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/user_account"
+                    app:layout_constraintBottom_toTopOf="@+id/nickname"
+                    app:layout_constraintStart_toEndOf="@+id/user_name_label"
+                    app:layout_constraintEnd_toStartOf="@+id/user_account_delete"
+                    app:layout_constraintHorizontal_weight="5"
+                    android:textSize="16sp"
+                    android:text="kefengxw@qq.com"/>
+
+            <com.foodorder.order.view.componet.UnifiedButton
+                    android:id="@+id/user_account_delete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/user_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/user_name"
+                    app:layout_constraintStart_toEndOf="@+id/user_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="2"
+                    android:background="@color/colorRed"
+                    android:textSize="16sp"
+                    android:text="Delete"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/nickname_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/nickname"
+                    app:layout_constraintBottom_toBottomOf="@+id/nickname"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/nickname"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Nickname"/>
+
+            <com.foodorder.order.view.componet.UnifiedEditText
+                    android:id="@+id/nickname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/user_account"
+                    app:layout_constraintBottom_toTopOf="@+id/enterprise_name"
+                    app:layout_constraintStart_toEndOf="@+id/nickname_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:textSize="16sp"
+                    android:text="xuefenfei"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/enterprise_name_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/enterprise_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/enterprise_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/enterprise_name"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Company name"/>
+
+            <com.foodorder.order.view.componet.UnifiedEditText
+                    android:id="@+id/enterprise_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/nickname"
+                    app:layout_constraintBottom_toTopOf="@+id/restaurant_name"
+                    app:layout_constraintStart_toEndOf="@+id/enterprise_name_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:textSize="16sp"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/restaurant_name_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/restaurant_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/restaurant_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/restaurant_name"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Restaurant name"/>
+
+            <com.foodorder.order.view.componet.UnifiedEditText
+                    android:id="@+id/restaurant_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/enterprise_name"
+                    app:layout_constraintBottom_toTopOf="@+id/restaurant_addr"
+                    app:layout_constraintStart_toEndOf="@+id/restaurant_name_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:textSize="16sp"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/restaurant_addr_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/restaurant_addr"
+                    app:layout_constraintBottom_toBottomOf="@+id/restaurant_addr"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/restaurant_addr"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Restaurant address"/>
+
+            <com.foodorder.order.view.componet.UnifiedEditText
+                    android:id="@+id/restaurant_addr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/restaurant_name"
+                    app:layout_constraintBottom_toTopOf="@+id/restaurant_floor"
+                    app:layout_constraintStart_toEndOf="@+id/restaurant_addr_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:textSize="16sp"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/restaurant_floor_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/restaurant_floor"
+                    app:layout_constraintBottom_toBottomOf="@+id/restaurant_floor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/restaurant_floor"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Restaurant floor"/>
+
+            <com.foodorder.order.view.componet.UnifiedEditText
+                    android:id="@+id/restaurant_floor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/restaurant_addr"
+                    app:layout_constraintBottom_toTopOf="@+id/cuisine"
+                    app:layout_constraintStart_toEndOf="@+id/restaurant_floor_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:textSize="16sp"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/cuisine_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/cuisine"
+                    app:layout_constraintBottom_toBottomOf="@+id/cuisine"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cuisine"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Cuisine name"/>
+
+            <com.foodorder.order.view.componet.UnifiedEditText
+                    android:id="@+id/cuisine"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/restaurant_floor"
+                    app:layout_constraintBottom_toTopOf="@+id/scope_label"
+                    app:layout_constraintStart_toEndOf="@+id/cuisine_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:textSize="16sp"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/scope_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/cuisine"
+                    app:layout_constraintBottom_toTopOf="@+id/breakfast_check"
+                    android:gravity="left"
+                    android:textSize="16sp"
+                    android:text="Scope"/>
+
+            <com.foodorder.order.view.componet.UnifiedCheckedTextView
+                    android:id="@+id/breakfast_check"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                    app:layout_constraintTop_toBottomOf="@+id/scope_label"
+                    app:layout_constraintBottom_toTopOf="@+id/lunch_check"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/breakfast_switch"
+                    app:layout_constraintHorizontal_weight="5"
+                    android:gravity="left|center_vertical"
+                    android:textSize="16sp"
+                    android:text="Breakfast"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/breakfast_switch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/breakfast_check"
+                    app:layout_constraintBottom_toBottomOf="@+id/breakfast_check"
+                    app:layout_constraintStart_toEndOf="@+id/breakfast_check"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="5"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:text="Buffet"/>
+
+            <com.foodorder.order.view.componet.UnifiedCheckedTextView
+                    android:id="@+id/lunch_check"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                    app:layout_constraintTop_toBottomOf="@+id/breakfast_check"
+                    app:layout_constraintBottom_toTopOf="@+id/dinner_check"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/lunch_switch"
+                    app:layout_constraintHorizontal_weight="5"
+                    android:gravity="left|center_vertical"
+                    android:textSize="16sp"
+                    android:text="Lunch"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/lunch_switch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/lunch_check"
+                    app:layout_constraintBottom_toBottomOf="@+id/lunch_check"
+                    app:layout_constraintStart_toEndOf="@+id/lunch_check"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="5"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:text="Buffet"/>
+
+            <com.foodorder.order.view.componet.UnifiedCheckedTextView
+                    android:id="@+id/dinner_check"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                    app:layout_constraintTop_toBottomOf="@+id/lunch_check"
+                    app:layout_constraintBottom_toTopOf="@+id/restaurant_square"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/dinner_switch"
+                    app:layout_constraintHorizontal_weight="5"
+                    android:gravity="left|center_vertical"
+                    android:textSize="16sp"
+                    android:text="Dinner"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/dinner_switch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/dinner_check"
+                    app:layout_constraintBottom_toBottomOf="@+id/dinner_check"
+                    app:layout_constraintStart_toEndOf="@+id/dinner_check"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="5"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:text="Buffet"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/restaurant_square_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/restaurant_square"
+                    app:layout_constraintBottom_toBottomOf="@+id/restaurant_square"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/restaurant_square"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Square"/>
+
+            <com.foodorder.order.view.componet.UnifiedSpinnerView
+                    android:id="@+id/restaurant_square"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/dinner_check"
+                    app:layout_constraintBottom_toTopOf="@+id/restaurant_table_number"
+                    app:layout_constraintStart_toEndOf="@+id/restaurant_square_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:textSize="16sp"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/restaurant_table_number_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/restaurant_table_number"
+                    app:layout_constraintBottom_toBottomOf="@+id/restaurant_table_number"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/restaurant_table_number"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Table number"/>
+
+            <com.foodorder.order.view.componet.UnifiedSpinnerView
+                    android:id="@+id/restaurant_table_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/restaurant_square"
+                    app:layout_constraintBottom_toTopOf="@+id/restaurant_employee_number"
+                    app:layout_constraintStart_toEndOf="@+id/restaurant_table_number_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:textSize="16sp"/>
+
+            <com.foodorder.order.view.componet.UnifiedTextView
+                    android:id="@+id/restaurant_employee_number_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/restaurant_employee_number"
+                    app:layout_constraintBottom_toBottomOf="@+id/restaurant_employee_number"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/restaurant_employee_number"
+                    app:layout_constraintHorizontal_weight="3"
+                    android:textSize="16sp"
+                    android:text="Employee number"/>
+
+            <com.foodorder.order.view.componet.UnifiedSpinnerView
+                    android:id="@+id/restaurant_employee_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/restaurant_table_number"
+                    app:layout_constraintBottom_toTopOf="@+id/update_button"
+                    app:layout_constraintStart_toEndOf="@+id/restaurant_employee_number_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="7"
+                    android:textSize="16sp"/>
+
+            <com.foodorder.order.view.componet.UnifiedButton
+                    android:id="@+id/update_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/restaurant_employee_number"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="28sp"
+                    android:text="Update"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+            android:id="@+id/update_profile_progress_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_tool_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            layout="@layout/progress_info"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

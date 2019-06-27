@@ -132,8 +132,6 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
         mProgressInfo.progressInfoSetText(x, y)
 
         getUserProfileFromRemote()
-
-
     }
 
     override fun initOnStart() {

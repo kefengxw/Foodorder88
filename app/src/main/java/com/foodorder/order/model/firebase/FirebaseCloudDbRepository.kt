@@ -228,6 +228,6 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
     }
 
     fun getFoodQueryWhereEqualTo(it: String): Query {
-        return mDocFood.whereEqualTo("category", it).orderBy("uniqueId")
+        return mDocFood.whereEqualTo("remoteInfo.category", it).orderBy("uniqueId")
     }
 }

@@ -15,15 +15,6 @@
             android:layout_height="wrap_content"
             layout="@layout/tool_bar"/>
 
-    <include
-            android:id="@+id/upload_edit_progress_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/upload_edit_tool_bar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            layout="@layout/progress_info"/>
-
     <androidx.core.widget.NestedScrollView
             android:id="@+id/upload_scroll_layout"
             android:layout_width="match_parent"
@@ -287,5 +278,14 @@
             app:layout_constraintBottom_toBottomOf="@+id/upload_cancel"
             android:textAllCaps="false"
             android:text="Upload"/>
+
+    <include
+            android:id="@+id/upload_edit_progress_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/upload_edit_tool_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            layout="@layout/progress_info"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

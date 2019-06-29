@@ -97,29 +97,12 @@ interface BaseRecyclerView {
     fun getItemDataUnit(snapshot: DocumentSnapshot): OverviewItem {
         //snapshot.reference
         //也可以放到子类中进行处理，暂时放在这里，因为OverviewItem是一个统一的，如果不同的话，就需要考虑不同子类分开
-        var x = snapshot.getString("uniqueId")
-        var y = snapshot.getString("name")
-        var z = snapshot.getString("imageRemoteAddr")
-        var l = snapshot.getString("imageRemotePath")
-        var m = snapshot.getString("price")
-        var n = snapshot.getString("description")
-        var o = snapshot.getString("category")
-
+        //var x = snapshot.getString("uniqueId")
         if (!snapshot.exists()) {
             //debug error here
         }
 
         val item: OverviewItem = snapshot.toObject(OverviewItem::class.java)!!
         return item
-
-//        if (x == null) x = ""
-//        if (y == null) y = ""
-//        if (z == null) z = ""
-//        if (l == null) l = ""
-//        if (m == null) m = ""
-//        if (n == null) n = ""
-//        if (o == null) o = ""
-//
-//        return OverviewItem(x, y, z, l, m, n, o)
     }
 }

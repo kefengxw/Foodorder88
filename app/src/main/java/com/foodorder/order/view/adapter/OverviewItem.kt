@@ -5,56 +5,21 @@ import android.os.Parcelable
 import com.foodorder.order.model.firebase.DataUnitRemoteImageFb
 import com.foodorder.order.model.firebase.FoodDataUnitRemoteFb
 
-class OverviewItem {
+class OverviewItem : Parcelable {
     var uniqueId: String = ""//default key
     var remoteInfo: FoodDataUnitRemoteFb = FoodDataUnitRemoteFb()
     var remoteImage: DataUnitRemoteImageFb = DataUnitRemoteImageFb()
 
     constructor() {} // Needed for Firebase
-}
-
-//data class FoodDataUnitRemoteFb(    //RemoteT, remotePart
-//    val name: String = "",
-//    val price: String = "",
-//    val description: String = "",
-//    val category: String = ""
-//)
-//
-//class DataUnitRemoteImageFb(
-//    var imageRemoteAddr: String = "",
-//    var imageRemotePath: String = ""
-//)
-
-/*
-class OverviewItemTest : Parcelable {
-    var uniqueId: String = ""//default key
-    var name: String = ""
-    var imageAddr: String = ""//only the firebase picture address
-    var imagePath: String = ""//the firebase folder and picture name
-    var price: String = ""
-    var description: String = ""
-    var category: String = ""
-
-    constructor() {} // Needed for Firebase
-
-    constructor(id: String, name: String, addr: String, path: String, price: String, desc: String, cate: String) {
-        this.uniqueId = id
-        this.name = name
-        this.imageAddr = addr
-        this.imagePath = path
-        this.price = price
-        this.description = desc
-        this.category = cate
-    }
 
     constructor(parcel: Parcel) {
         uniqueId = parcel.readString()!!
-        name = parcel.readString()!!
-        imageAddr = parcel.readString()!!
-        imagePath = parcel.readString()!!
-        price = parcel.readString()!!
-        description = parcel.readString()!!
-        category = parcel.readString()!!
+        remoteInfo.name = parcel.readString()!!
+        remoteInfo.price = parcel.readString()!!
+        remoteInfo.description = parcel.readString()!!
+        remoteInfo.category = parcel.readString()!!
+        remoteImage.imageRemoteAddr = parcel.readString()!!
+        remoteImage.imageRemotePath = parcel.readString()!!
     }
 
     override fun describeContents(): Int {
@@ -64,12 +29,12 @@ class OverviewItemTest : Parcelable {
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.run {
             writeString(uniqueId)
-            writeString(name)
-            writeString(imageAddr)
-            writeString(imagePath)
-            writeString(price)
-            writeString(description)
-            writeString(category)
+            writeString(remoteInfo.name)
+            writeString(remoteInfo.price)
+            writeString(remoteInfo.description)
+            writeString(remoteInfo.category)
+            writeString(remoteImage.imageRemoteAddr)
+            writeString(remoteImage.imageRemotePath)
         }
     }
 
@@ -82,4 +47,4 @@ class OverviewItemTest : Parcelable {
             return arrayOfNulls(size)
         }
     }
-}*/
+}

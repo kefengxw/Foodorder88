@@ -40,14 +40,12 @@ class UnifiedSpinnerHandle(val mActivity: BaseActivity, list: ArrayList<UnifiedS
 
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val item = parent!!.getItemAtPosition(position) as UnifiedSpinnerItem
-            //showToast("Category Spinner ---${item}--- is selected")
-            //mCategory = item.mCategory
             mListener.spinnerResult(this@UnifiedSpinnerHandle, item)
         }
     }
 
     interface HandleSpinnerResult {
-        //if (type == )用来区分可能存在2个spinner的情况
+        //if (type == ) to distinguish 2 spinners case
         fun spinnerResult(type: UnifiedSpinnerHandle, item: UnifiedSpinnerItem)
     }
 }

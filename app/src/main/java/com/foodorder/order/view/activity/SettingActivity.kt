@@ -3,7 +3,6 @@ package com.foodorder.order.view.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
 import com.foodorder.order.R
@@ -29,13 +28,8 @@ class SettingActivity : BaseActivity(),
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initOnCreateInitialize() {
 
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.setting, SettingFrag())
-            .commit()
     }
 
     override fun initOnCreateLayoutResId(): Int {
@@ -71,10 +65,17 @@ class SettingActivity : BaseActivity(),
     }
 
     override fun initLocalProcess() {
-
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.setting, SettingFrag())
+            .commit()
     }
 
     override fun initOnStart() {
+
+    }
+
+    override fun handleOnStop() {
 
     }
 

@@ -87,7 +87,7 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
 
     fun deleteFromFood(docRef: DocumentReference, item: OverviewItem) {
         //delete picture first, and then update the database
-        docRef.delete()//delete datdabase
+        docRef.delete()//delete database
 
         val stoRef = mStorageRef.child(item.remoteImage.imageRemotePath)
         stoRef.delete()

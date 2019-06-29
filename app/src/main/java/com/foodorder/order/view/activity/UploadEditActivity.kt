@@ -2,7 +2,6 @@ package com.foodorder.order.view.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.NestedScrollView
@@ -56,18 +55,17 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
         fun startUploadEditActivity(ctx: Context, input: OverviewItem) {
             val intent = Intent(ctx, UploadEditActivity::class.java)
             //val bundle = Bundle()
-            //intent.putExtra("bundleData", input)临时注释掉1
+            intent.putExtra("bundleData", input)
             ctx.startActivity(intent)
         }
 
         fun decodeBundleData(it: UploadEditActivity): OverviewItem? {
-            return null
-            //return it.intent.getParcelableExtra<OverviewItem>("bundleData")临时注释掉2
+            return it.intent.getParcelableExtra<OverviewItem>("bundleData")
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initOnCreateInitialize() {
+
     }
 
     override fun initOnCreateLayoutResId(): Int {
@@ -139,8 +137,8 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
 
     private fun initSpinner() {
         initSpinnerList()
-        val x = getSpinnerPosition(mSpinnerList, "mainCourse")//待完善
-        mCategorySpinner = UnifiedSpinnerHandle(this, mSpinnerList, 2)
+        val x = getSpinnerPosition(mSpinnerList, mCategory)//待完善
+        mCategorySpinner = UnifiedSpinnerHandle(this, mSpinnerList, x)
         mCategorySpinner.spinnerHandleInit(R.id.category_edit_spinner)
     }
 
@@ -157,7 +155,6 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
         val y = "Failed to upload the food..."
         mProgressInfo.progressInfoSetText(x, y)
 
-        //initSpinner()
         initNumberPicker()
         initSpinner()
     }
@@ -177,24 +174,17 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
     private fun handleRemoteFoodData(it: OverviewItem) {
         mUniqueId = it.uniqueId
         mEditTextName.setText(it.remoteInfo.name)
-        mRemoteImageAddr = it.remoteImage.imageRemoteAddr
-        mRemoteImagePath = it.remoteImage.imageRemotePath
         mEditTextPrice.setText(it.remoteInfo.price)
         mEditTextDesc.setText(it.remoteInfo.description)
         mCategory = it.remoteInfo.category
-        //需要增加spinner的表示
+        mRemoteImageAddr = it.remoteImage.imageRemoteAddr
+        mRemoteImagePath = it.remoteImage.imageRemotePath
         //mPriority = it.priority//后续待优化
+        if (mRemoteImageAddr == ""){
+            //error here
+        }
         displayImageWithAddr(mRemoteImageAddr)
     }
-
-//    private fun initSpinner() {
-//        initSpinnerList()
-//        mCategorySpinner.adapter = UnifiedSpinnerAdapter(this, mSpinnerList)
-//        mCategorySpinner.onItemSelectedListener = spinnerListener
-//
-//        mCategorySpinner.setSelection(2, true)//positoin从mCategory来
-//        mCategorySpinner.gravity = Gravity.CENTER
-//    }
 
     private fun initNumberPicker() {
         //numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);设置不可编辑
@@ -204,23 +194,11 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
         mPriorityPickerView.value = 3;//需要重新输入正确的值
     }
 
-//    private val spinnerListener = object : AdapterView.OnItemSelectedListener {
-//        override fun onNothingSelected(parent: AdapterView<*>?) {
-//            //nothing to do
-//        }
-//
-//        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//            val item = parent!!.getItemAtPosition(position) as UnifiedSpinnerItem
-//            showToast("Category Spinner ---${item.mSpinnerItem}--- is selected")
-//            mCategory = item.mSpinnerItem
-//        }
-//    }
-
-    private fun getSpinnerPositionByName() {
+    override fun initOnStart() {
 
     }
 
-    override fun initOnStart() {
+    override fun handleOnStop() {
 
     }
 
@@ -357,7 +335,7 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
     override fun spinnerResult(type: UnifiedSpinnerHandle, item: UnifiedSpinnerItem) {
 
         if (mCategorySpinner == type) {
-            showToast("Category Spinner ---${item.mSpinnerItem}--- is selected")
+            showToast("${item.mSpinnerItem} is selected")
             mCategory = item.mSpinnerItem
         }
     }

@@ -2,7 +2,6 @@ package com.foodorder.order.view.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.Toolbar
@@ -31,8 +30,8 @@ class RegisterActivity : BaseActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initOnCreateInitialize() {
+
     }
 
     override fun initOnCreateLayoutResId(): Int {
@@ -77,6 +76,10 @@ class RegisterActivity : BaseActivity() {
     }
 
     override fun initOnStart() {
+
+    }
+
+    override fun handleOnStop() {
 
     }
 

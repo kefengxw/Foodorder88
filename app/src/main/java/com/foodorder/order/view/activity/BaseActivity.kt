@@ -34,9 +34,11 @@ abstract class BaseActivity : AppCompatActivity() {//extends DaggerAppCompatActi
 
     private fun initOnCreate() {
         setContentView(initOnCreateLayoutResId())
+        initOnCreateInitialize()
         setToolbar()
     }
 
+    protected abstract fun initOnCreateInitialize()
     protected abstract fun initOnCreateLayoutResId(): Int
     protected abstract fun initOnCreateToolbar(): Toolbar?
     protected abstract fun initToolbarTitle(): String
@@ -68,6 +70,7 @@ abstract class BaseActivity : AppCompatActivity() {//extends DaggerAppCompatActi
     }
 
     protected abstract fun initOnStart()
+    protected abstract fun handleOnStop()
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
@@ -78,6 +81,11 @@ abstract class BaseActivity : AppCompatActivity() {//extends DaggerAppCompatActi
             }
         }
         return true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handleOnStop()
     }
 
     @Override

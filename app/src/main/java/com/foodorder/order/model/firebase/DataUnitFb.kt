@@ -31,10 +31,10 @@ enum class FireBaseFolder(val value: String) {
 
 //RemoteT of Food
 data class FoodDataUnitRemoteFb(    //RemoteT, remotePart
-    val name: String = "",
-    val price: String = "",
-    val description: String = "",
-    val category: String = ""
+    var name: String = "",
+    var price: String = "",
+    var description: String = "",
+    var category: String = ""
 )
 
 //RemoteT of User

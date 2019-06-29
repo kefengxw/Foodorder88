@@ -44,6 +44,22 @@ class UploadOverviewActivity : BaseActivity(), BaseRecyclerView {
         }
     }
 
+    override fun initOnCreateInitialize() {
+        mCategory = getFoodCategory()
+    }
+
+    override fun initOnCreateLayoutResId(): Int {
+        return R.layout.upload_overview_activity
+    }
+
+    override fun initOnCreateToolbar(): Toolbar? {
+        return upload_overview_tool_bar as Toolbar
+    }
+
+    override fun initToolbarTitle(): String {
+        return ("Upload Overview - " + this.mCategory)
+    }
+
     override fun initInjector() {
 
     }
@@ -61,20 +77,7 @@ class UploadOverviewActivity : BaseActivity(), BaseRecyclerView {
     }
 
     override fun initLocalProcess() {
-        mCategory = getFoodCategory()
         initRecycler()
-    }
-
-    override fun initOnCreateLayoutResId(): Int {
-        return R.layout.upload_overview_activity
-    }
-
-    override fun initOnCreateToolbar(): Toolbar? {
-        return upload_overview_tool_bar as Toolbar
-    }
-
-    override fun initToolbarTitle(): String {
-        return "Upload Overview"
     }
 
     override fun enableHomeAsUp(): Boolean {
@@ -85,9 +88,8 @@ class UploadOverviewActivity : BaseActivity(), BaseRecyclerView {
         startRecyclerViewListening()
     }
 
-    override fun onStop() {
+    override fun handleOnStop() {
         stopRecyclerViewListening()
-        super.onStop()
     }
 
     private val addBtnListener = object : View.OnClickListener {

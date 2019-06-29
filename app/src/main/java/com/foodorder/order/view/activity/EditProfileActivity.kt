@@ -8,7 +8,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.foodorder.order.R
-import com.foodorder.order.model.data.InternalStatusConfiguration.getLoginUserId
 import com.foodorder.order.model.data.ReturnCode
 import com.foodorder.order.model.data.ReturnCode.*
 import com.foodorder.order.model.data.Status
@@ -66,6 +65,10 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
             val intent = Intent(ctx, EditProfileActivity::class.java)
             ctx.startActivity(intent)
         }
+    }
+
+    override fun initOnCreateInitialize() {
+
     }
 
     override fun initOnCreateLayoutResId(): Int {
@@ -152,6 +155,10 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
     }
 
     override fun initOnStart() {
+
+    }
+
+    override fun handleOnStop() {
 
     }
 

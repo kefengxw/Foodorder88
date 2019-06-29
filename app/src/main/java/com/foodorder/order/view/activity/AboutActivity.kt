@@ -2,7 +2,6 @@ package com.foodorder.order.view.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import com.foodorder.order.R
 import kotlinx.android.synthetic.main.about_activity.*
@@ -17,8 +16,8 @@ class AboutActivity : BaseActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initOnCreateInitialize() {
+
     }
 
     override fun initOnCreateLayoutResId(): Int {
@@ -58,6 +57,10 @@ class AboutActivity : BaseActivity() {
     }
 
     override fun initOnStart() {
+
+    }
+
+    override fun handleOnStop() {
 
     }
 }

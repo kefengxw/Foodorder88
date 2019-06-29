@@ -3,7 +3,6 @@ package com.foodorder.order.view.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
@@ -34,8 +33,8 @@ class InitialActivity : BaseActivity(), LoginDialog.LoginDialogListener {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initOnCreateInitialize() {
+
     }
 
     override fun initOnCreateLayoutResId(): Int {
@@ -84,6 +83,10 @@ class InitialActivity : BaseActivity(), LoginDialog.LoginDialogListener {
     }
 
     override fun initOnStart() {
+
+    }
+
+    override fun handleOnStop() {
 
     }
 

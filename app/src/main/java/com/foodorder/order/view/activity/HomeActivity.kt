@@ -2,7 +2,6 @@ package com.foodorder.order.view.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import android.view.View.INVISIBLE
 import android.widget.Toast
@@ -76,8 +75,8 @@ class HomeActivity : BaseActivity(),
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initOnCreateInitialize() {
+
     }
 
     @Inject
@@ -208,6 +207,10 @@ class HomeActivity : BaseActivity(),
     override fun initOnStart() {
         mPageViewAdapter = SectionsPagerAdapter(supportFragmentManager, mFabtn)
         mPageView.adapter = mPageViewAdapter
+    }
+
+    override fun handleOnStop() {
+
     }
 
     private val naviListener = NavigationView.OnNavigationItemSelectedListener { item ->

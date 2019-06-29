@@ -110,7 +110,7 @@ interface BaseRecyclerView {
         }
 
         val item: OverviewItem = snapshot.toObject(OverviewItem::class.java)!!
-        return OverviewItem()
+        return item
 
 //        if (x == null) x = ""
 //        if (y == null) y = ""

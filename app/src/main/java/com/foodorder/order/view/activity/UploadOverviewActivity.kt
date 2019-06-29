@@ -124,7 +124,7 @@ class UploadOverviewActivity : BaseActivity(), BaseRecyclerView {
     }
 
     override fun getQuery(): Query {
-        //return mViewModel.getQueryOrderByKey()
+        //return mViewModel.getFoodQueryOrderByKey()
         return mViewModel.getQueryWhereEqualTo(mCategory)
     }
 

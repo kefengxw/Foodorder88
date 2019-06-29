@@ -47,34 +47,34 @@ class EditProfileViewModel(app: Application) : BaseViewModel(app) {
         return mUploadResult
     }
 
-//    fun updateUser(localUser: UpdateLocalUserDataUnit): LiveData<FirebaseResult> {
-//
-//        val rxFlow = mFbCloudDbRepos.updateUser(localUser)
-//
-//        rxFlow.subscribe(object : FlowableSubscriber<FirebaseResult> {
-//            //这里是接受数据
-//            override fun onSubscribe(s: Subscription) {
-//                s.request(Long.MAX_VALUE)
-//                mSubscription = s
-//            }
-//
-//            override fun onNext(it: FirebaseResult) {
-//                handleOnNext(it)
-//            }
-//
-//            override fun onError(t: Throwable) {
-//                //应该通知activity显示登录失败，但是如何通知呢？构造loadingError Resource，甚至可以进行细分，提升用户体验
-//                val x = errorFbData(t.message)
-//                handleOnError(x)
-//            }
-//
-//            override fun onComplete() {
-//                mSubscription.cancel()
-//            }
-//        })
-//
-//        return LiveDataReactiveStreams.fromPublisher(rxFlow)
-//    }
+    fun updateUser(localUser: UpdateLocalUserDataUnit): LiveData<FirebaseResult> {
+
+        val rxFlow = mFbCloudDbRepos.updateUser(localUser)
+
+        rxFlow.subscribe(object : FlowableSubscriber<FirebaseResult> {
+            //这里是接受数据
+            override fun onSubscribe(s: Subscription) {
+                s.request(Long.MAX_VALUE)
+                mSubscription = s
+            }
+
+            override fun onNext(it: FirebaseResult) {
+                handleOnNext(it)
+            }
+
+            override fun onError(t: Throwable) {
+                //应该通知activity显示登录失败，但是如何通知呢？构造loadingError Resource，甚至可以进行细分，提升用户体验
+                val x = errorFbData(t.message)
+                handleOnError(x)
+            }
+
+            override fun onComplete() {
+                mSubscription.cancel()
+            }
+        })
+
+        return LiveDataReactiveStreams.fromPublisher(rxFlow)
+    }
 
     private fun handleOnNext(it: FirebaseResult) {
         mUploadResult.value = it
@@ -85,7 +85,7 @@ class EditProfileViewModel(app: Application) : BaseViewModel(app) {
     }
 
     fun taskIsOngoing(): Boolean {
-        return mFbCloudDbRepos.taskIsOngoing()
+        return mFbCloudDbRepos.foodTaskIsOngoing()
     }
 
     override fun onCleared() {

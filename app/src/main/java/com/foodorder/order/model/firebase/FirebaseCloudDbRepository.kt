@@ -12,14 +12,12 @@ import com.foodorder.order.model.firebase.FirebaseResult.Companion.loadingFbData
 import com.foodorder.order.model.firebase.FirebaseResult.Companion.successFbData
 import com.foodorder.order.view.adapter.OverviewItem
 import com.foodorder.order.view.componet.UpdateLocalUserDataUnit
+import com.foodorder.order.view.componet.UpdateRemoteUserDataUnit
 import com.foodorder.order.view.componet.UploadLocalFoodDataUnit
 import com.foodorder.order.view.componet.UploadRemoteFoodDataUnit
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
@@ -31,22 +29,23 @@ import org.joda.time.DateTimeUtils
 
 class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAuth*/) {
 
-    val mFbCloudDatabase: FirebaseFirestore = FirebaseFirestore.getInstance()
-    val mFbCloudStorage: FirebaseStorage = FirebaseStorage.getInstance()
+    private val mFbCloudDatabase: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val mFbCloudStorage: FirebaseStorage = FirebaseStorage.getInstance()
 
-    val mCoName: String = getLoginUserId()
+    private val mCoName: String = getLoginUserId()
 
-    val mDbCoRef = mFbCloudDatabase.collection(mCoName)
-    private val mDocUser = mDbCoRef.document("user").collection("user")
+    private val mDbCoRef = mFbCloudDatabase.collection(mCoName)
+    private val mDocUser = mDbCoRef//.document("user").collection("user")
     private val mDocFood = mDbCoRef.document("food").collection("food")
     private val mDocIngr = mDbCoRef.document("ingredient").collection("ingredient")
     //val mDocFoodIngr = mDbCoRef.document("food_ingre")
     //val mDocSubmit = mDbCoRef.document("submit")
 
-    val mStorageRef = mFbCloudStorage.getReference(mCoName)
+    private val mStorageRef = mFbCloudStorage.getReference(mCoName)
 
-    var mUploadTaskSt: StorageTask<UploadTask.TaskSnapshot>? = null
-    var mUploadTaskDb: Task<Void>? = null
+    private var mUploadTaskSt: StorageTask<UploadTask.TaskSnapshot>? = null
+    private var mUploadTaskDb: Task<Void>? = null
+    private var mUpdateUserTaskDb: Task<Void>? = null
 
     /*  static FirebaseAuth
         getInstance(FirebaseApp firebaseApp)
@@ -61,6 +60,43 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
         //Note note = documentSnapshot.toObject(Note.class);
     }
 
+    private fun initResult(it: BehaviorSubject<FirebaseResult>) {
+        it.onNext(loadingFbData())
+    }
+
+    private fun getUserDocumentRef(): DocumentReference {
+        return mDocUser.document("user")
+    }
+
+    private fun getFoodDocumentRef(type: FireBaseFolderType): CollectionReference {
+        return when (type) {
+            UserFolder -> mDocUser
+            FoodFolder -> mDocFood
+            else -> mDocIngr
+        }
+    }
+
+    private fun getUniqueIdString(): String {
+        return DateTimeUtils.currentTimeMillis().toString()//unique name for this upload or data(food)
+    }
+
+    /**************************************************Update Food*****************************************************/
+    fun foodTaskIsOngoing(): Boolean {
+        return ((mUploadTaskSt != null) && (mUploadTaskSt!!.isInProgress)) || (mUploadTaskDb != null) && (mUploadTaskDb!!.isComplete)
+    }
+
+    fun uploadToUser(localFood: UploadLocalFoodDataUnit) {
+        addOrUpdateFoodToStorage("user", UserFolder, localFood)
+    }
+
+    fun updateToFood(localFood: UploadLocalFoodDataUnit): Flowable<FirebaseResult> {
+        return addOrUpdateFoodToStorage("food", FoodFolder, localFood)
+    }
+
+    fun uploadToIngredient(localFood: UploadLocalFoodDataUnit) {
+        addOrUpdateFoodToStorage("ingredient", IngredientFolder, localFood)
+    }
+
     fun deleteFood(docRef: DocumentReference, item: OverviewItem) {
         //delete picture first, and then update the database
         docRef.delete()//delete datdabase
@@ -69,35 +105,7 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
         stoRef.delete()
     }
 
-    fun taskIsOngoing(): Boolean {
-        return ((mUploadTaskSt != null) && (mUploadTaskSt!!.isInProgress)) || (mUploadTaskDb != null) && (mUploadTaskDb!!.isComplete)
-    }
-
-    fun uploadToUser(localFood: UploadLocalFoodDataUnit) {
-        addToStorage("user", UserFolder, localFood)
-    }
-
-    fun updateToFood(localFood: UploadLocalFoodDataUnit): Flowable<FirebaseResult> {
-        return addToStorage("food", FoodFolder, localFood)
-    }
-
-    fun uploadToIngredient(localFood: UploadLocalFoodDataUnit) {
-        addToStorage("ingredient", IngredientFolder, localFood)
-    }
-
-//    fun updateUser(localFood: UpdateLocalUserDataUnit): Flowable<FirebaseResult> {
-//        return addToStorage("food", FoodFolder, localFood)
-//    }
-
-    private fun deleteFromStorage() {
-
-    }
-
-    private fun initResult(it: BehaviorSubject<FirebaseResult>) {
-        it.onNext(loadingFbData())
-    }
-
-    private fun addToStorage(
+    private fun addOrUpdateFoodToStorage(
         folderType: String,
         type: FireBaseFolderType,
         localFood: UploadLocalFoodDataUnit
@@ -110,23 +118,23 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
 
         if (remoteFood.uniqueId == "") {
             //new, from "add new button"
-            val uniqueId = DateTimeUtils.currentTimeMillis().toString()//unique name for this upload or data(food)
-            handleNewUpload(folderType, type, uniqueId, localFood, remoteFood, result)
+            val uniqueId = getUniqueIdString()//unique name for this upload or data(food)
+            handleNewUploadFood(folderType, type, uniqueId, localFood, remoteFood, result)
         } else {
             //update, two cases: 1. uri already update to localFood by user, 2. uri is still the firebase address
             if (remoteFood.imageRemoteAddr == "") {
                 //case 1: uri is update to localFood files, and should upload localFood file to firebase
-                handleNewUpload(folderType, type, remoteFood.uniqueId, localFood, remoteFood, result)
+                handleNewUploadFood(folderType, type, remoteFood.uniqueId, localFood, remoteFood, result)
             } else {
                 //case 2: still the firebase uri, no need to upload the file to firebase, only update the database, that's all
-                handleUpdateUpload(type, remoteFood, result)
+                handleUpdateUploadFood(type, remoteFood, result)
             }
         }
 
         return result.toFlowable(BackpressureStrategy.BUFFER)
     }
 
-    private fun handleNewUpload(
+    private fun handleNewUploadFood(
         folderType: String,
         type: FireBaseFolderType,
         uniqueId: String,
@@ -141,22 +149,22 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
         remoteFood.uniqueId = uniqueId
         mUploadTaskSt = mStorageUser.putFile(uri)
             .addOnSuccessListener {
-                handleUploadSuccess(type, mStorageUser, remoteFood, imageWholeName, result)
+                handleUploadFoodSuccess(type, mStorageUser, remoteFood, imageWholeName, result)
             }
             .addOnFailureListener {
-                handleUploadError(it, result)
+                handleUploadFoodError(it, result)
             }
     }
 
-    private fun handleUpdateUpload(
+    private fun handleUpdateUploadFood(
         type: FireBaseFolderType,
         remoteFood: UploadRemoteFoodDataUnit,
         result: BehaviorSubject<FirebaseResult>
     ) {
-        uploadToDatabase(type, remoteFood, result)
+        uploadFoodToDatabase(type, remoteFood, result)
     }
 
-    private fun handleUploadSuccess(
+    private fun handleUploadFoodSuccess(
         type: FireBaseFolderType,
         storageUser: StorageReference,
         remoteFood: UploadRemoteFoodDataUnit,
@@ -169,7 +177,7 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
                 if (it.isSuccessful) {
                     //do nothing here
                 } else {
-                    handleUploadError(it.exception!!, result)
+                    handleUploadFoodError(it.exception!!, result)
                 }
                 return@Continuation storageUser.downloadUrl
             }).addOnCompleteListener() {
@@ -179,41 +187,41 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
                 remoteFood.imageRemoteAddr = downloadRri.toString()//update the download link
                 remoteFood.imageRemotePath = imageWholeName
 
-                uploadToDatabase(type, remoteFood, result)
+                uploadFoodToDatabase(type, remoteFood, result)
             } else {
-                handleUploadError(it.exception!!, result)
+                handleUploadFoodError(it.exception!!, result)
             }
         }
     }
 
-    private fun handleUploadError(
+    private fun handleUploadFoodError(
         it: Exception,
         result: BehaviorSubject<FirebaseResult>
     ) {
         result.onNext(errorFbData(it.message))
-        endThisTask(result)
+        endThisFoodTask(result)
     }
 
-    private fun uploadToDatabase(
+    private fun uploadFoodToDatabase(
         type: FireBaseFolderType,
         remoteFood: UploadRemoteFoodDataUnit,
         result: BehaviorSubject<FirebaseResult>
     ) {
         //upload information to database
         val name = remoteFood.uniqueId
-        val docRef = getDocumentRef(type).document(name)
+        val docRef = getFoodDocumentRef(type).document(name)
 
         mUploadTaskDb = docRef.set(remoteFood)
             .addOnFailureListener {
-                handleUploadError(it, result)
+                handleUploadFoodError(it, result)
             }
             .addOnSuccessListener {
                 result.onNext(successFbData())
-                endThisTask(result)
+                endThisFoodTask(result)
             }
     }
 
-    private fun endThisTask(result: BehaviorSubject<FirebaseResult>) {
+    private fun endThisFoodTask(result: BehaviorSubject<FirebaseResult>) {
         result.onComplete()
         mUploadTaskSt = null
         mUploadTaskDb = null
@@ -227,19 +235,103 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
         return mime.getExtensionFromMimeType(cResolver.getType(uri))!!
     }
 
-    private fun getDocumentRef(type: FireBaseFolderType): CollectionReference {
-        return when (type) {
-            UserFolder -> mDocUser
-            FoodFolder -> mDocFood
-            else -> mDocIngr
-        }
-    }
-
-    fun getQueryOrderByKey(): Query {
+    fun getFoodQueryOrderByKey(): Query {
         return mDocFood.orderBy("uniqueId", Query.Direction.ASCENDING)
     }
 
-    fun getQueryWhereEqualTo(it: String): Query {
+    fun getFoodQueryWhereEqualTo(it: String): Query {
         return mDocFood.whereEqualTo("category", it).orderBy("uniqueId")
+    }
+
+    /*********************************************Update User Profile**************************************************/
+    fun updateUser(localUser: UpdateLocalUserDataUnit): Flowable<FirebaseResult> {
+        return addOrUpdateUser(localUser)
+    }
+
+    private fun addOrUpdateUser(
+        localUser: UpdateLocalUserDataUnit
+    ): Flowable<FirebaseResult> {
+
+        val result = BehaviorSubject.create<FirebaseResult>()//here to omit data
+        initResult(result)
+
+        val remote: UpdateRemoteUserDataUnit = localUser.updateRemoteUser
+        if ((localUser.imageLocalAddr != "") && (remote.imageRemoteAddr == "")) {
+            //first time to update user --- upload logo first time直接上传图片
+            val uniqueId = getUniqueIdString()
+            handleUpdateUserWithImage(uniqueId, localUser, remote, result)
+        } else if ((localUser.imageLocalAddr != "") && (remote.imageRemoteAddr != "")) {
+            //will replace the logo with new image使用新图片和旧名字
+            handleUpdateUserWithImage(remote.uniqueId, localUser, remote, result)
+        } else if ((localUser.imageLocalAddr == "") && (remote.imageRemoteAddr != "")) {
+            //still use the remote image, no need to change
+            handleUpdateUser(remote, result)
+        }
+        //else if ((localUser.imageLocalAddr == "") && (remote.imageRemoteAddr == "")) //first time to update user, can not happen
+
+
+        //update, two cases: 1. uri already update to localFood by user, 2. uri is still the firebase address
+        if (remote.imageRemoteAddr == "") {
+            //case 1: uri is update to localFood files, and should upload localFood file to firebase
+            handleUpdateUserWithImage(remote.uniqueId, localFood, remote, result)
+        } else {
+            //case 2: still the firebase uri, no need to upload the file to firebase, only update the database, that's all
+            handleUpdateUser(remote, result)
+        }
+
+        return result.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    private fun handleUpdateUserWithImage(
+        uniqueId: String,
+        localUser: UpdateLocalUserDataUnit,
+        remoteUser: UpdateRemoteUserDataUnit,
+        result: BehaviorSubject<FirebaseResult>
+    ) {
+        val uri: Uri = localUser.imageLocalAddr.toUri()
+        val imageWholeName = "user" + "/" + uniqueId + "." + getFileExtension(uri)
+        val mStorageUser = mStorageRef.child(imageWholeName)
+
+        if (remoteUser.uniqueId != "") {
+            remoteUser.uniqueId = uniqueId
+        }
+
+        mUploadTaskSt = mStorageUser.putFile(uri)
+            .addOnSuccessListener {
+                handleUserSuccess(mStorageUser, remoteUser, imageWholeName, result)
+            }
+            .addOnFailureListener {
+                handleUploadFoodError(it, result)
+            }
+    }
+
+    private fun handleUpdateUser(
+        remoteUser: UpdateRemoteUserDataUnit,
+        result: BehaviorSubject<FirebaseResult>
+    ) {
+        updateUserToDatabase(remoteUser, result)
+    }
+
+    private fun updateUserToDatabase(
+        remoteUser: UpdateRemoteUserDataUnit,
+        result: BehaviorSubject<FirebaseResult>
+    ) {
+        //upload information to database
+        val docRef = getUserDocumentRef()
+
+        mUpdateUserTaskDb = docRef.set(remoteUser, SetOptions.merge())
+            .addOnFailureListener {
+                handleUploadFoodError(it, result)
+            }
+            .addOnSuccessListener {
+                result.onNext(successFbData())
+                endThisUserTask(result)
+            }
+    }
+
+    private fun endThisUserTask(result: BehaviorSubject<FirebaseResult>) {
+        result.onComplete()
+        mUploadTaskSt = null
+        mUpdateUserTaskDb = null
     }
 }

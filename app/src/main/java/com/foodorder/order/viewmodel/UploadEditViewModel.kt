@@ -2,16 +2,13 @@ package com.foodorder.order.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import com.foodorder.order.model.data.ReturnCode
 import com.foodorder.order.model.data.ReturnCode.*
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepository
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepositoryFactory
 import com.foodorder.order.model.firebase.FirebaseResult
-import com.foodorder.order.model.firebase.FirebaseResult.Companion.errorFbData
 import com.foodorder.order.view.componet.UploadLocalFoodDataUnit
-import io.reactivex.FlowableSubscriber
 import org.reactivestreams.Subscription
 
 class UploadEditViewModel(app: Application) : BaseViewModel(app) {
@@ -75,7 +72,7 @@ class UploadEditViewModel(app: Application) : BaseViewModel(app) {
     }
 
     fun taskIsOngoing(): Boolean {
-        return mFbCloudDbRepos.taskIsOngoing()
+        return mFbCloudDbRepos.foodTaskIsOngoing()
     }
 
     override fun onCleared() {

@@ -51,9 +51,9 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
     private var mLunch: String = ""
     private var mDinner: String = ""
 
-    private var mSquare: String = ""
-    private var mTableNum: String = ""
-    private var mEmployeeNum: String = ""
+    private var mSquare: String = "01 ~ 10"
+    private var mTableNum: String = "01 ~ 05"
+    private var mEmployeeNum: String = "01 ~ 05"
 
     private var mLocalImageAddr: String = ""
     private var mRemoteImageAddr: String = ""
@@ -136,7 +136,6 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
     }
 
     override fun initLocalProcess() {
-        initSpinner()
 
         val x = "Update profile now..."
         val y = "Failed to update the profile..."
@@ -148,6 +147,8 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
         } else {
             handleRemoteUserProfile()
         }
+
+        initSpinner()
     }
 
     override fun initOnStart() {
@@ -168,13 +169,29 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
     }
 
     private fun initSpinner() {
+        //must done after mSquare,mTableNum,mEmployeeNum has the value
         initSpinnerList()
-        mSpinnerSquare = UnifiedSpinnerHandle(this, mSpinnerListSquare)
-        mSpinnerTableNum = UnifiedSpinnerHandle(this, mSpinnerListTableNum)
-        mSpinnerEmployeeNum = UnifiedSpinnerHandle(this, mSpinnerListEmployeeNum)
+        val x = getSpinnerPosition(mSpinnerListSquare, mSquare)
+        val y = getSpinnerPosition(mSpinnerListTableNum, mTableNum)
+        val z = getSpinnerPosition(mSpinnerListEmployeeNum, mEmployeeNum)
+        mSpinnerSquare = UnifiedSpinnerHandle(this, mSpinnerListSquare, x)
+        mSpinnerTableNum = UnifiedSpinnerHandle(this, mSpinnerListTableNum, y)
+        mSpinnerEmployeeNum = UnifiedSpinnerHandle(this, mSpinnerListEmployeeNum, z)
         mSpinnerSquare.spinnerHandleInit(R.id.restaurant_square)
         mSpinnerTableNum.spinnerHandleInit(R.id.restaurant_table_number)
         mSpinnerEmployeeNum.spinnerHandleInit(R.id.restaurant_employee_number)
+    }
+
+    private fun getSpinnerPosition(list: ArrayList<UnifiedSpinnerItem>, item: String): Int {
+
+        var index: Int = 0
+        for (it in list) {
+            if (item == it.mSpinnerItem) {
+                break
+            }
+            index++
+        }
+        return index
     }
 
     private val observerResult = object : Observer<FirebaseResult> {
@@ -193,7 +210,7 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
     }
 
     private fun updateData(it: FirebaseResult) {
-        if (it.mStatus != Status.LOADING) {
+        if (it.mStatus != Status.LOADING) {//Success&failed
             showToast("Upload food successful or failed")
             this.finish()
         }
@@ -202,7 +219,12 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
     private fun getUserProfileFromRemote(): Boolean {
 
         //mRemoteData =
-        //校验数据
+        //校验数据 addSnapshotListener documentSnapshot.exists()
+        //noteRef.set(note, SetOptions.merge());
+        //Map<String, Object> note = new HashMap<>();
+        //note.put(KEY_DESCRIPTION, description);
+        //noteRef.set(note, SetOptions.merge());
+        //noteRef.update(KEY_DESCRIPTION, description);
         return true
     }
 
@@ -221,7 +243,9 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
         handleRemoteCheck(mRemoteData.lunch, mLunchCheck, mLunchBuffet)
         handleRemoteCheck(mRemoteData.dinner, mDinnerCheck, mDinnerBuffet)
 
-
+        mSquare = mRemoteData.square
+        mTableNum = mRemoteData.tableNumber
+        mEmployeeNum = mRemoteData.employeeNumber
 
         displayImageWithAddr(mRemoteImageAddr)
     }
@@ -237,10 +261,6 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
         check.isChecked = true
         buffet.isEnabled = check.isChecked
         buffet.isChecked = type.contains("Buffet")
-    }
-
-    private fun handleRemoteSpinner() {
-
     }
 
     private val updateBtnListener = object : View.OnClickListener {
@@ -282,7 +302,7 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
                 return
             }
 
-            //mViewModel.updateUser(local)
+            mViewModel.updateUser(local)
         }
     }
 

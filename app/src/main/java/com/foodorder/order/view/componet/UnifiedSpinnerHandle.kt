@@ -1,21 +1,18 @@
 package com.foodorder.order.view.componet
 
-import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import com.foodorder.order.view.activity.BaseActivity
 
-class UnifiedSpinnerHandle(val mActivity: BaseActivity, list: ArrayList<UnifiedSpinnerItem>) {
+class UnifiedSpinnerHandle(val mActivity: BaseActivity, list: ArrayList<UnifiedSpinnerItem>, var defaultPosition: Int) {
 
     lateinit var mCategorySpinner: UnifiedSpinnerView
     var mSpinnerList = list//ArrayList<UnifiedSpinnerItem>()
     private var mListener: HandleSpinnerResult
-    var position: Int//后续待改进
 
     init {
         mListener = mActivity as HandleSpinnerResult
-        position = 2
     }
 
     fun spinnerHandleInit(id: Int) {
@@ -32,7 +29,7 @@ class UnifiedSpinnerHandle(val mActivity: BaseActivity, list: ArrayList<UnifiedS
         mCategorySpinner.adapter = UnifiedSpinnerAdapter(mActivity, mSpinnerList)
         mCategorySpinner.onItemSelectedListener = spinnerListener
 
-        mCategorySpinner.setSelection(position, true)//positoin从mCategory来
+        mCategorySpinner.setSelection(defaultPosition, true)//positoin从mCategory来
         mCategorySpinner.gravity = Gravity.CENTER
     }
 

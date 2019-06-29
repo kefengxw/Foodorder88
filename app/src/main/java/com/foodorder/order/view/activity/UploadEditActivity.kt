@@ -138,13 +138,12 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
 
     private fun initSpinner() {
         initSpinnerList()
-        mCategorySpinner = UnifiedSpinnerHandle(this, mSpinnerList)
+        val x = getSpinnerPosition(mSpinnerList, "mainCourse")//待完善
+        mCategorySpinner = UnifiedSpinnerHandle(this, mSpinnerList, 2)
         mCategorySpinner.spinnerHandleInit(R.id.category_edit_spinner)
     }
 
     override fun initLocalProcess() {
-
-        initSpinner()
 
         val it = decodeBundleData(this@UploadEditActivity)
         if (it != null) {
@@ -159,6 +158,19 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
 
         //initSpinner()
         initNumberPicker()
+        initSpinner()
+    }
+
+    private fun getSpinnerPosition(list: ArrayList<UnifiedSpinnerItem>, item: String): Int {
+
+        var index: Int = 0
+        for (it in list) {
+            if (item == it.mSpinnerItem) {
+                break
+            }
+            index++
+        }
+        return index
     }
 
     private fun handleRemoteFoodData(it: OverviewItem) {
@@ -169,6 +181,7 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
         mEditTextPrice.setText(it.price)
         mEditTextDesc.setText(it.description)
         mCategory = it.category
+        //需要增加spinner的表示
         //mPriority = it.priority//后续待优化
         displayImageWithAddr(mRemoteImageAddr)
     }
@@ -187,7 +200,7 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
         mPriorityPickerView.minValue = 1
         mPriorityPickerView.maxValue = 10
         mPriorityPickerView.wrapSelectorWheel = false;//循环显示
-        mPriorityPickerView.value = 3;
+        mPriorityPickerView.value = 3;//需要重新输入正确的值
     }
 
 //    private val spinnerListener = object : AdapterView.OnItemSelectedListener {

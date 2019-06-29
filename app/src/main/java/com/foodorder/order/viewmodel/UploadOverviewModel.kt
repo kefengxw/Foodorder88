@@ -2,17 +2,13 @@ package com.foodorder.order.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepository
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepositoryFactory
 import com.foodorder.order.model.firebase.FirebaseResult
-import com.foodorder.order.model.firebase.FirebaseResult.Companion.errorFbData
-import com.foodorder.order.view.componet.UploadLocalFoodDataUnit
 import com.foodorder.order.view.adapter.OverviewItem
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Query
-import io.reactivex.FlowableSubscriber
 import org.reactivestreams.Subscription
 
 class UploadOverviewModel(app: Application) : BaseViewModel(app) {
@@ -27,11 +23,11 @@ class UploadOverviewModel(app: Application) : BaseViewModel(app) {
     }
 
     fun getQueryOrderByKey(): Query {
-        return mFbCloudDbRepos.getQueryOrderByKey()
+        return mFbCloudDbRepos.getFoodQueryOrderByKey()
     }
 
     fun getQueryWhereEqualTo(it: String): Query {
-        return mFbCloudDbRepos.getQueryWhereEqualTo(it)
+        return mFbCloudDbRepos.getFoodQueryWhereEqualTo(it)
     }
 
     fun getUploadResult(): LiveData<FirebaseResult> {
@@ -87,7 +83,7 @@ class UploadOverviewModel(app: Application) : BaseViewModel(app) {
     }
 
     fun taskIsOngoing(): Boolean {
-        return mFbCloudDbRepos.taskIsOngoing()
+        return mFbCloudDbRepos.foodTaskIsOngoing()
     }
 
     override fun onCleared() {

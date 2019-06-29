@@ -2,8 +2,31 @@ package com.foodorder.order.view.adapter
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.foodorder.order.model.firebase.DataUnitRemoteImageFb
+import com.foodorder.order.model.firebase.FoodDataUnitRemoteFb
 
-class OverviewItem : Parcelable {
+class OverviewItem {
+    var uniqueId: String = ""//default key
+    var remoteInfo: FoodDataUnitRemoteFb = FoodDataUnitRemoteFb()
+    var remoteImage: DataUnitRemoteImageFb = DataUnitRemoteImageFb()
+
+    constructor() {} // Needed for Firebase
+}
+
+//data class FoodDataUnitRemoteFb(    //RemoteT, remotePart
+//    val name: String = "",
+//    val price: String = "",
+//    val description: String = "",
+//    val category: String = ""
+//)
+//
+//class DataUnitRemoteImageFb(
+//    var imageRemoteAddr: String = "",
+//    var imageRemotePath: String = ""
+//)
+
+/*
+class OverviewItemTest : Parcelable {
     var uniqueId: String = ""//default key
     var name: String = ""
     var imageAddr: String = ""//only the firebase picture address
@@ -59,4 +82,4 @@ class OverviewItem : Parcelable {
             return arrayOfNulls(size)
         }
     }
-}
+}*/

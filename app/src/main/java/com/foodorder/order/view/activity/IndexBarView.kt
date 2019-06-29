@@ -84,7 +84,7 @@ class IndexBarView @JvmOverloads constructor(context: Context, attrs: AttributeS
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         super.dispatchTouchEvent(event)
 
-        //val x = event.x//each pointer of the screen
+        //val value = event.value//each pointer of the screen
         val y = event.y
         val action = event.action
 

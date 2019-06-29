@@ -269,40 +269,40 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
             showToast("Updating Clicked now ... !")
 
             //UploadEditViewModel check的检查，比如名字规范等等，文件名，菜名等等
-            val local = UpdateLocalUserDataUnit(
-                UpdateRemoteUserDataUnit(
-                    getLoginUserId(),
-                    "kefengxw@qq.com",
-                    mEditTextNickName.text.toString().trim(),
-                    mEditTextCompanyName.text.toString().trim(),
-                    mEditTextRestaurantName.text.toString().trim(),
-                    mEditTextRestaurantAddr.text.toString().trim(),
-                    mEditTextRestaurantFloor.text.toString().trim(),
-                    mEditTextCuisineName.text.toString().trim(),
-                    mBreakfast,
-                    mLunch,
-                    mDinner,
-                    mSquare,
-                    mTableNum,
-                    mEmployeeNum,
-                    "",
-                    ""
-                ),
-                mLocalImageAddr
-            )
-
-            val it = mViewModel.inputCheck(local)
-            if (ReturnCode.ReturnCode_Success != it) {
-                showInputCheckResult(it)
-                return
-            }
-
-            if (mViewModel.taskIsOngoing()) {
-                showToast("Updating Task running now!")
-                return
-            }
-
-            mViewModel.updateUser(local)
+//            val local = UpdateLocalUserDataUnit(
+//                UpdateRemoteUserDataUnit(
+//                    getLoginUserId(),
+//                    "kefengxw@qq.com",
+//                    mEditTextNickName.text.toString().trim(),
+//                    mEditTextCompanyName.text.toString().trim(),
+//                    mEditTextRestaurantName.text.toString().trim(),
+//                    mEditTextRestaurantAddr.text.toString().trim(),
+//                    mEditTextRestaurantFloor.text.toString().trim(),
+//                    mEditTextCuisineName.text.toString().trim(),
+//                    mBreakfast,
+//                    mLunch,
+//                    mDinner,
+//                    mSquare,
+//                    mTableNum,
+//                    mEmployeeNum,
+//                    "",
+//                    ""
+//                ),
+//                mLocalImageAddr
+//            )
+//
+//            val it = mViewModel.inputCheck(local)
+//            if (ReturnCode.ReturnCode_Success != it) {
+//                showInputCheckResult(it)
+//                return
+//            }
+//
+//            if (mViewModel.taskIsOngoing()) {
+//                showToast("Updating Task running now!")
+//                return
+//            }
+//
+//            mViewModel.updateToUser(local)
         }
     }
 

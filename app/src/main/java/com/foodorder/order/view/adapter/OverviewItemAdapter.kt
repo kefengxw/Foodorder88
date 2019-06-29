@@ -33,11 +33,13 @@ class OverviewItemAdapter(options: FirestoreRecyclerOptions<OverviewItem>, glide
     }
 
     override fun getItemCount(): Int {
-        return super.getItemCount()
+        val x = super.getItemCount()
+        return x
     }
 
     override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
+        val x = super.getItemViewType(position)
+        return x
     }
 
     //better to handle at ViewModel
@@ -92,9 +94,9 @@ class OverviewItemAdapter(options: FirestoreRecyclerOptions<OverviewItem>, glide
 
         fun bindView(it: OverviewItem, glide: GlideRequests) {
             mItemId.text = it.uniqueId
-            mItemName.text = it.name
-            if (it.imageAddr != "") {
-                glide.load(it.imageAddr).into(mItemImage)
+            mItemName.text = it.remoteInfo.name
+            if (it.remoteImage.imageRemoteAddr != "") {
+                glide.load(it.remoteImage.imageRemoteAddr).into(mItemImage)
             } else {
                 glide.load(R.drawable.orange).into(mItemImage)
             }

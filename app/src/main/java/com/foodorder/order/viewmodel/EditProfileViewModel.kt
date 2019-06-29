@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import com.foodorder.order.model.data.ReturnCode
 import com.foodorder.order.model.data.ReturnCode.*
+import com.foodorder.order.model.firebase.DataUnitFb
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepository
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepositoryFactory
 import com.foodorder.order.model.firebase.FirebaseResult
@@ -35,7 +36,8 @@ class EditProfileViewModel(app: Application) : BaseViewModel(app) {
         if (it.updateRemoteUser.cuisineName.isEmpty()) return ReturnCode_Err_Cuisine_Name
         if (it.updateRemoteUser.breakfast.isEmpty()
             && it.updateRemoteUser.lunch.isEmpty()
-            && it.updateRemoteUser.dinner.isEmpty()) return ReturnCode_Err_Scope
+            && it.updateRemoteUser.dinner.isEmpty()
+        ) return ReturnCode_Err_Scope
         if (it.updateRemoteUser.nickName.isEmpty()) return ReturnCode_Err_Square
         if (it.updateRemoteUser.nickName.isEmpty()) return ReturnCode_Err_Table_Number
         if (it.updateRemoteUser.nickName.isEmpty()) return ReturnCode_Err_Employee_Number
@@ -47,9 +49,9 @@ class EditProfileViewModel(app: Application) : BaseViewModel(app) {
         return mUploadResult
     }
 
-    fun updateUser(localUser: UpdateLocalUserDataUnit): LiveData<FirebaseResult> {
+    fun <UserDataUnitRemoteFb> updateToUser(localData: DataUnitFb<UserDataUnitRemoteFb>): LiveData<FirebaseResult> {
 
-        val rxFlow = mFbCloudDbRepos.updateUser(localUser)
+        val rxFlow = mFbCloudDbRepos.updateToUser(localData)
 
         rxFlow.subscribe(object : FlowableSubscriber<FirebaseResult> {
             //这里是接受数据

@@ -214,6 +214,7 @@ class HomeActivity : BaseActivity(),
         when (item.itemId) {
             R.id.nav_home -> {
                 //startUploadEditActivity(this, )
+                startUploadEditActivity(this, "dessert")
                 Toast.makeText(this, "hello nav_home", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_game -> {

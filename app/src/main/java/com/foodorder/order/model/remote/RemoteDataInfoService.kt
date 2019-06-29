@@ -8,7 +8,7 @@ import retrofit2.http.*
 interface RemoteDataInfoService {
 
     @Headers(
-        "Content-type: application/x-www-form-urlencoded"
+        "Content-type: application/value-www-form-urlencoded"
     )
     @FormUrlEncoded
     @POST(value = "https://accounts.spotify.com/api/token")//different BASE_URL

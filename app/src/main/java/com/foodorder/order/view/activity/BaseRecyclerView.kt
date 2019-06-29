@@ -105,14 +105,21 @@ interface BaseRecyclerView {
         var n = snapshot.getString("description")
         var o = snapshot.getString("category")
 
-        if (x == null) x = ""
-        if (y == null) y = ""
-        if (z == null) z = ""
-        if (l == null) l = ""
-        if (m == null) m = ""
-        if (n == null) n = ""
-        if (o == null) o = ""
+        if (!snapshot.exists()) {
+            //debug error here
+        }
 
-        return OverviewItem(x, y, z, l, m, n, o)
+        val item: OverviewItem = snapshot.toObject(OverviewItem::class.java)!!
+        return OverviewItem()
+
+//        if (x == null) x = ""
+//        if (y == null) y = ""
+//        if (z == null) z = ""
+//        if (l == null) l = ""
+//        if (m == null) m = ""
+//        if (n == null) n = ""
+//        if (o == null) o = ""
+//
+//        return OverviewItem(x, y, z, l, m, n, o)
     }
 }

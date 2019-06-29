@@ -14,7 +14,7 @@ import com.foodorder.order.model.data.ReturnCode
 import com.foodorder.order.model.data.ReturnCode.*
 import com.foodorder.order.model.data.Status
 import com.foodorder.order.model.data.Status.LOADING
-import com.foodorder.order.model.firebase.FirebaseResult
+import com.foodorder.order.model.firebase.*
 import com.foodorder.order.view.adapter.OverviewItem
 import com.foodorder.order.view.componet.*
 import com.foodorder.order.viewmodel.UploadEditViewModel
@@ -56,12 +56,13 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
         fun startUploadEditActivity(ctx: Context, input: OverviewItem) {
             val intent = Intent(ctx, UploadEditActivity::class.java)
             //val bundle = Bundle()
-            intent.putExtra("bundleData", input)
+            //intent.putExtra("bundleData", input)临时注释掉1
             ctx.startActivity(intent)
         }
 
         fun decodeBundleData(it: UploadEditActivity): OverviewItem? {
-            return it.intent.getParcelableExtra<OverviewItem>("bundleData")
+            return null
+            //return it.intent.getParcelableExtra<OverviewItem>("bundleData")临时注释掉2
         }
     }
 
@@ -175,12 +176,12 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
 
     private fun handleRemoteFoodData(it: OverviewItem) {
         mUniqueId = it.uniqueId
-        mEditTextName.setText(it.name)
-        mRemoteImageAddr = it.imageAddr
-        mRemoteImagePath = it.imagePath
-        mEditTextPrice.setText(it.price)
-        mEditTextDesc.setText(it.description)
-        mCategory = it.category
+        mEditTextName.setText(it.remoteInfo.name)
+        mRemoteImageAddr = it.remoteImage.imageRemoteAddr
+        mRemoteImagePath = it.remoteImage.imageRemotePath
+        mEditTextPrice.setText(it.remoteInfo.price)
+        mEditTextDesc.setText(it.remoteInfo.description)
+        mCategory = it.remoteInfo.category
         //需要增加spinner的表示
         //mPriority = it.priority//后续待优化
         displayImageWithAddr(mRemoteImageAddr)
@@ -227,17 +228,18 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
         override fun onClick(v: View?) {
             //UploadEditViewModel check的检查，比如名字规范等等，文件名，菜名等等
             //需要增加对于mCategory的检查，放置用户删除了默认值
-            val local = UploadLocalFoodDataUnit(
-                UploadRemoteFoodDataUnit(
+            val local = DataUnitFb<FoodDataUnitRemoteFb>(
+                DataUnitCase(mLocalImageAddr, mRemoteImageAddr, mUniqueId, FireBaseFolder.FoodFolder),
+                DataUnitRemoteFb<FoodDataUnitRemoteFb>(
                     mUniqueId,
-                    mEditTextName.text.toString().trim(),
-                    mRemoteImageAddr,
-                    mRemoteImagePath,
-                    mEditTextPrice.text.toString().trim(),
-                    mEditTextDesc.text.toString().trim(),
-                    mCategory
-                ),
-                mLocalImageAddr
+                    FoodDataUnitRemoteFb(
+                        mEditTextName.text.toString().trim(),
+                        mEditTextPrice.text.toString().trim(),
+                        mEditTextDesc.text.toString().trim(),
+                        mCategory
+                    ),
+                    DataUnitRemoteImageFb(mRemoteImageAddr, mRemoteImagePath)
+                )
             )
 
             val it = mViewModel.inputCheck(local)
@@ -251,7 +253,7 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
                 return
             }
 
-            //mViewModel.uploadFood(local)
+            mViewModel.addOrUpdateToFood(local)
         }
     }
 
@@ -350,8 +352,6 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
 
     override fun openFileResultSuccessHandle(newImageAddr: String) {
         mLocalImageAddr = newImageAddr
-        mRemoteImageAddr = ""
-        mRemoteImagePath = ""
     }
 
     override fun spinnerResult(type: UnifiedSpinnerHandle, item: UnifiedSpinnerItem) {

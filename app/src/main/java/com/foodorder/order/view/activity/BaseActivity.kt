@@ -52,7 +52,7 @@ abstract class BaseActivity : AppCompatActivity() {//extends DaggerAppCompatActi
         it?.run {
             setSupportActionBar(it)
             it.title = initToolbarTitle()
-            //x.subtitle = "nihao Testing"
+            //value.subtitle = "nihao Testing"
         }
     }
 

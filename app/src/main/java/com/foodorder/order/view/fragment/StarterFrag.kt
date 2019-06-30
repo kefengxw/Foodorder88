@@ -24,7 +24,7 @@ class StarterFrag : BaseFragmentWithItemOrder() {
         }
     }
 
-    override fun ProvidedFragmentLayoutId(): Int {
+    override fun providedFragmentLayoutId(): Int {
         return R.layout.starter_layout
     }
 

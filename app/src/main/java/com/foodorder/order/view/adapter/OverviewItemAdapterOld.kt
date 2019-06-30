@@ -14,8 +14,8 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
 
-class OverviewItemAdapter(options: FirestoreRecyclerOptions<OverviewItem>, glide: GlideRequests) :
-    FirestoreRecyclerAdapter<OverviewItem, OverviewItemAdapter.OverviewItemHolder>(options) {
+class OverviewItemAdapterOld(options: FirestoreRecyclerOptions<OverviewItem>, glide: GlideRequests) :
+    FirestoreRecyclerAdapter<OverviewItem, OverviewItemAdapterOld.OverviewItemHolder>(options) {
 
     private var mItemClick: OnItemClickInterface? = null
     private val mGlide: GlideRequests = glide

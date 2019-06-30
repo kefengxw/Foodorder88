@@ -17,7 +17,7 @@ class DessertFrag : BaseFragmentWithItemOrder() {
         }
     }
 
-    override fun ProvidedFragmentLayoutId(): Int {
+    override fun providedFragmentLayoutId(): Int {
         return R.layout.dessert_layout
     }
 

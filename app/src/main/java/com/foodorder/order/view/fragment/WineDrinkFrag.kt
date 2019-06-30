@@ -17,7 +17,7 @@ class WineDrinkFrag : BaseFragmentWithItemOrder() {
         }
     }
 
-    override fun ProvidedFragmentLayoutId(): Int {
+    override fun providedFragmentLayoutId(): Int {
         return R.layout.wine_drink_layout
     }
 

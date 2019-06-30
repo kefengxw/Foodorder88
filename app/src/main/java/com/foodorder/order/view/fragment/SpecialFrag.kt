@@ -17,7 +17,7 @@ class SpecialFrag : BaseFragmentWithItemOrder() {
         }
     }
 
-    override fun ProvidedFragmentLayoutId(): Int {
+    override fun providedFragmentLayoutId(): Int {
         return R.layout.special_layout
     }
 

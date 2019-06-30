@@ -7,23 +7,26 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.foodorder.order.R
 import com.foodorder.order.model.data.GlideApp
 import com.foodorder.order.model.data.GlideRequests
 import com.foodorder.order.view.activity.UploadEditActivity.Companion.startUploadEditActivity
 import com.foodorder.order.view.adapter.OverviewItem
-import com.foodorder.order.view.adapter.OverviewItemAdapter
+//import com.foodorder.order.view.adapter.OverviewItemAdapter
+import com.foodorder.order.view.adapter.UploadItemAdapter
+import com.foodorder.order.view.adapter.UploadItemHolder
 import com.foodorder.order.view.componet.UnifiedButton
 import com.foodorder.order.viewmodel.UploadOverviewModel
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.upload_overview_activity.*
 
-class UploadOverviewActivity : BaseActivity(), BaseRecyclerView {
+class UploadOverviewActivity : BaseActivity(), BaseRecyclerView<UploadItemHolder, UploadItemAdapter> {
 
     private lateinit var mViewModel: UploadOverviewModel
     private lateinit var mAddBtn: UnifiedButton
     override lateinit var mRecyclerView: RecyclerView
-    override lateinit var mAdapter: OverviewItemAdapter
+    override lateinit var mAdapter: UploadItemAdapter//OverviewItemAdapter
     private var mCategory: String = ""
 
     companion object {
@@ -113,7 +116,14 @@ class UploadOverviewActivity : BaseActivity(), BaseRecyclerView {
         return findViewById(R.id.upload_overview_recycler)
     }
 
-    override fun initRecyclerViewAdapter(): OverviewItemAdapter {
+    override fun createRecyclerViewAdapter(
+        options: FirestoreRecyclerOptions<OverviewItem>,
+        glide: GlideRequests
+    ): UploadItemAdapter {
+        return UploadItemAdapter(options, glide)
+    }
+
+    override fun initRecyclerViewAdapter(): UploadItemAdapter/*OverviewItemAdapter*/ {
         return getRecyclerViewAdapter()
     }
 

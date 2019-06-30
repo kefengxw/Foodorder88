@@ -16,7 +16,7 @@ class ChefFrag : BaseFragment() {
         }
     }
 
-    override fun ProvidedFragmentLayoutId(): Int {
+    override fun providedFragmentLayoutId(): Int {
         return R.layout.welcome_layout
     }
 }

@@ -16,7 +16,7 @@ class ConceptFrag : BaseFragment() {
         }
     }
 
-    override fun ProvidedFragmentLayoutId(): Int {
+    override fun providedFragmentLayoutId(): Int {
         return R.layout.concept_layout
     }
 }

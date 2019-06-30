@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment : Fragment() {
     //protected var mViewModel: ShareViewModel? = null
-    protected var mCtx: Context? = null
+    protected var mBaseCtx: Context? = null
     protected var mBaseView: View? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        this.mCtx = context
+        this.mBaseCtx = context
         getViewModel()//improve query 2 times info from network at initial phase
     }
 
@@ -25,11 +25,11 @@ abstract class BaseFragment : Fragment() {
         //mViewModel = ViewModelProviders.of(activity!!).get(ShareViewModel::class.java)
     }
 
-    protected abstract fun ProvidedFragmentLayoutId(): Int
+    protected abstract fun providedFragmentLayoutId(): Int
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val id = ProvidedFragmentLayoutId()
+        val id = providedFragmentLayoutId()
 
         if (mBaseView == null) {
             mBaseView = inflater.inflate(id, container, false)
@@ -62,6 +62,10 @@ abstract class BaseFragment : Fragment() {
     protected open fun initObserve() {}
 
     fun showToast(msg: String) {
-        Toast.makeText(mCtx!!, msg, Toast.LENGTH_SHORT).show()
+        Toast.makeText(mBaseCtx!!, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    fun <T : View> baseFragFindViewById(id: Int): T {
+        return mBaseView!!.findViewById<T>(id)
     }
 }

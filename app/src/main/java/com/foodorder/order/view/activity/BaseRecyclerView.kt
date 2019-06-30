@@ -1,24 +1,27 @@
 package com.foodorder.order.view.activity
 
+//import com.foodorder.order.view.adapter.OverviewItemAdapter
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.SnapshotParser
 import com.foodorder.order.model.data.GlideRequests
+import com.foodorder.order.view.adapter.BaseItemAdapter
+import com.foodorder.order.view.adapter.BaseItemHolder
 import com.foodorder.order.view.adapter.OverviewItem
-import com.foodorder.order.view.adapter.OverviewItemAdapter
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
 
-interface BaseRecyclerView {
+interface BaseRecyclerView<HolderT : BaseItemHolder, AdapterT : BaseItemAdapter<HolderT>> {
 
     //can be improved more, use <T> to replace OverviewItem
     var mRecyclerView: RecyclerView
-    var mAdapter: OverviewItemAdapter
+    var mAdapter: AdapterT//OverviewItemAdapter
 
     fun initRecyclerView(): RecyclerView
-    fun initRecyclerViewAdapter(): OverviewItemAdapter
+    fun initRecyclerViewAdapter(): AdapterT//OverviewItemAdapter
+    fun createRecyclerViewAdapter(options: FirestoreRecyclerOptions<OverviewItem>, glide: GlideRequests): AdapterT
     fun getGlide(): GlideRequests
     fun getLayoutManager(): LinearLayoutManager
     fun getQuery(): Query
@@ -39,7 +42,8 @@ interface BaseRecyclerView {
 
     private fun initLocalProcess() {
 
-        val itemClick = object : OverviewItemAdapter.OnItemClickInterface {
+        //val itemClick = object : OverviewItemAdapter.OnItemClickInterface {
+        val itemClick = object : BaseItemAdapter.OnItemClickInterface {
             override fun onItemClick(snapshot: DocumentSnapshot, position: Int) {
                 val it = getItemDataUnit(snapshot)
                 doActionOnRecyclerViewItemClick(it, position)
@@ -81,7 +85,7 @@ interface BaseRecyclerView {
         return options
     }
 
-    fun getRecyclerViewAdapter(): OverviewItemAdapter {
+    fun getRecyclerViewAdapter(): AdapterT/*OverviewItemAdapter*/ {
 
         val convert = object : SnapshotParser<OverviewItem> {
             override fun parseSnapshot(snapshot: DocumentSnapshot): OverviewItem {
@@ -91,7 +95,7 @@ interface BaseRecyclerView {
         val glide = getGlide()
         val options = getFirebaseOptions(convert)
 
-        return OverviewItemAdapter(options, glide)
+        return createRecyclerViewAdapter(options, glide)//OverviewItemAdapter(options, glide)
     }
 
     fun getItemDataUnit(snapshot: DocumentSnapshot): OverviewItem {

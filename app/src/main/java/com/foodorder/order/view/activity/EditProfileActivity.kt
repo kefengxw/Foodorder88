@@ -3,15 +3,17 @@ package com.foodorder.order.view.activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
+import android.widget.CompoundButton
 import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.foodorder.order.R
+import com.foodorder.order.model.data.InternalStatusConfiguration.getLoginUserId
 import com.foodorder.order.model.data.ReturnCode
 import com.foodorder.order.model.data.ReturnCode.*
 import com.foodorder.order.model.data.Status
-import com.foodorder.order.model.firebase.FirebaseResult
+import com.foodorder.order.model.firebase.*
 import com.foodorder.order.view.componet.*
 import com.foodorder.order.viewmodel.EditProfileViewModel
 import kotlinx.android.synthetic.main.edit_profile_activity.*
@@ -58,7 +60,7 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
     private var mRemoteImageAddr: String = ""
     private var mRemoteImagePath: String = ""
 
-    lateinit var mRemoteData: UpdateRemoteUserDataUnit
+    private lateinit var mRemoteData: GetUserDataUnitRemoteFb
 
     companion object {
         fun startEditProfileActivity(ctx: Context) {
@@ -89,7 +91,7 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
 
     override fun initViewModel() {
         mViewModel = ViewModelProviders.of(this@EditProfileActivity).get(EditProfileViewModel::class.java)
-        mViewModel.getUpdateResult().observe(this, observerResult)
+        mViewModel.getQueryUserResult().observe(this, observerResult)
     }
 
     override fun initView() {
@@ -112,6 +114,8 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
         mLunchBuffet = lunch_switch
         mDinnerBuffet = dinner_switch
 
+        mDeleteAccountBtn = user_account_delete
+
         mProgressInfo.progressInfoInit(R.id.update_profile_progress_info)
 
         initSubView()
@@ -133,9 +137,9 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
         mLunchCheck.setOnClickListener(checkListener)
         mDinnerCheck.setOnClickListener(checkListener)
 
-        mBreakfastBuffet.setOnClickListener(switchListener)
-        mLunchBuffet.setOnClickListener(switchListener)
-        mDinnerBuffet.setOnClickListener(switchListener)
+        mBreakfastBuffet.setOnCheckedChangeListener(switchListenerChange)
+        mLunchBuffet.setOnCheckedChangeListener(switchListenerChange)
+        mDinnerBuffet.setOnCheckedChangeListener(switchListenerChange)
     }
 
     override fun initLocalProcess() {
@@ -144,14 +148,9 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
         val y = "Failed to update the profile..."
         mProgressInfo.progressInfoSetText(x, y)
 
-        val it = getUserProfileFromRemote()
-        if (it != true) {
-            //failed to get remote data
-        } else {
-            handleRemoteUserProfile()
-        }
-
         initSpinner()
+
+        getUserProfileInfo()
     }
 
     override fun initOnStart() {
@@ -160,6 +159,10 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
 
     override fun handleOnStop() {
 
+    }
+
+    private fun getUserProfileInfo() {
+        mViewModel.queryUserProfile()
     }
 
     private fun initSpinnerList() {
@@ -198,16 +201,19 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
             }
             index++
         }
+        if (index == list.size) {
+            index = 0//first one is the default value
+        }
         return index
     }
 
-    private val observerResult = object : Observer<FirebaseResult> {
-        override fun onChanged(it: FirebaseResult) {
+    private val observerResult = object : Observer<FirebaseUserResult> {
+        override fun onChanged(it: FirebaseUserResult) {
             handleOnChanged(it)
         }
     }
 
-    private fun handleOnChanged(it: FirebaseResult) {
+    private fun handleOnChanged(it: FirebaseUserResult) {
         updateStatus(it.mStatus)
         updateData(it)
     }
@@ -216,10 +222,14 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
         mProgressInfo.progressInfoSetStatus(x)
     }
 
-    private fun updateData(it: FirebaseResult) {
+    private fun updateData(it: FirebaseUserResult) {
         if (it.mStatus != Status.LOADING) {//Success&failed
             showToast("Upload food successful or failed")
-            this.finish()
+        }
+
+        if (it.mStatus == Status.SUCCESS) {
+            mRemoteData = it.mUser!!
+            handleRemoteUserProfile()
         }
     }
 
@@ -236,38 +246,50 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
     }
 
     private fun handleRemoteUserProfile() {
-        //校验数据
-        mRemoteData
+        //校验数据和修复
+        mEditTextNickName.setText(mRemoteData.remoteInfo.nickName)
+        mEditTextCompanyName.setText(mRemoteData.remoteInfo.companyName)
+        mEditTextRestaurantName.setText(mRemoteData.remoteInfo.restaurantName)
+        mEditTextRestaurantAddr.setText(mRemoteData.remoteInfo.restaurantAddr)
+        mEditTextRestaurantFloor.setText(mRemoteData.remoteInfo.restaurantFloor)
+        mEditTextCuisineName.setText(mRemoteData.remoteInfo.cuisineName)
 
-        mEditTextNickName.setText(mRemoteData.nickName)
-        mEditTextCompanyName.setText(mRemoteData.companyName)
-        mEditTextRestaurantName.setText(mRemoteData.restaurantName)
-        mEditTextRestaurantAddr.setText(mRemoteData.restaurantAddr)
-        mEditTextRestaurantFloor.setText(mRemoteData.restaurantFloor)
-        mEditTextCuisineName.setText(mRemoteData.cuisineName)
+        mBreakfast = handleRemoteCheck(mRemoteData.remoteInfo.breakfast, mBreakfastCheck, mBreakfastBuffet)
+        mLunch = handleRemoteCheck(mRemoteData.remoteInfo.lunch, mLunchCheck, mLunchBuffet)
+        mDinner = handleRemoteCheck(mRemoteData.remoteInfo.dinner, mDinnerCheck, mDinnerBuffet)
 
-        handleRemoteCheck(mRemoteData.breakfast, mBreakfastCheck, mBreakfastBuffet)
-        handleRemoteCheck(mRemoteData.lunch, mLunchCheck, mLunchBuffet)
-        handleRemoteCheck(mRemoteData.dinner, mDinnerCheck, mDinnerBuffet)
+        mSquare = mRemoteData.remoteInfo.square
+        mTableNum = mRemoteData.remoteInfo.tableNumber
+        mEmployeeNum = mRemoteData.remoteInfo.employeeNumber
 
-        mSquare = mRemoteData.square
-        mTableNum = mRemoteData.tableNumber
-        mEmployeeNum = mRemoteData.employeeNumber
+        val x = getSpinnerPosition(mSpinnerListSquare, mSquare)
+        val y = getSpinnerPosition(mSpinnerListTableNum, mTableNum)
+        val z = getSpinnerPosition(mSpinnerListEmployeeNum, mEmployeeNum)
 
-        displayImageWithAddr(mRemoteImageAddr)
+        mSpinnerSquare.updateTheSpinnerPosition(x)
+        mSpinnerTableNum.updateTheSpinnerPosition(y)
+        mSpinnerEmployeeNum.updateTheSpinnerPosition(z)
+
+        mRemoteImageAddr = mRemoteData.remoteImage.imageRemoteAddr
+        mRemoteImagePath = mRemoteData.remoteImage.imageRemotePath
+
+        if (mRemoteImageAddr != "") {
+            displayImageWithAddr(mRemoteImageAddr)
+        }
     }
 
-    private fun handleRemoteCheck(type: String, check: UnifiedCheckedTextView, buffet: SwitchCompat) {
+    private fun handleRemoteCheck(type: String, check: UnifiedCheckedTextView, buffet: SwitchCompat): String {
 
         if (type == "") {
             check.isChecked = false
             buffet.isEnabled = check.isChecked
-            return
+        } else {
+            check.isChecked = true
+            buffet.isEnabled = check.isChecked
+            buffet.isChecked = type.contains("Buffet")
         }
 
-        check.isChecked = true
-        buffet.isEnabled = check.isChecked
-        buffet.isChecked = type.contains("Buffet")
+        return type
     }
 
     private val updateBtnListener = object : View.OnClickListener {
@@ -276,40 +298,49 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
             showToast("Updating Clicked now ... !")
 
             //UploadEditViewModel check的检查，比如名字规范等等，文件名，菜名等等
-//            val local = UpdateLocalUserDataUnit(
-//                UpdateRemoteUserDataUnit(
-//                    getLoginUserId(),
-//                    "kefengxw@qq.com",
-//                    mEditTextNickName.text.toString().trim(),
-//                    mEditTextCompanyName.text.toString().trim(),
-//                    mEditTextRestaurantName.text.toString().trim(),
-//                    mEditTextRestaurantAddr.text.toString().trim(),
-//                    mEditTextRestaurantFloor.text.toString().trim(),
-//                    mEditTextCuisineName.text.toString().trim(),
-//                    mBreakfast,
-//                    mLunch,
-//                    mDinner,
-//                    mSquare,
-//                    mTableNum,
-//                    mEmployeeNum,
-//                    "",
-//                    ""
-//                ),
-//                mLocalImageAddr
-//            )
-//
-//            val it = mViewModel.inputCheck(local)
-//            if (ReturnCode.ReturnCode_Success != it) {
-//                showInputCheckResult(it)
-//                return
-//            }
-//
-//            if (mViewModel.taskIsOngoing()) {
-//                showToast("Updating Task running now!")
-//                return
-//            }
-//
-//            mViewModel.updateToUser(local)
+            val local = DataUnitFb<UserDataUnitRemoteFb>(
+                DataUnitCase(
+                    mLocalImageAddr,
+                    mRemoteImageAddr,
+                    getLoginUserId(),
+                    FireBaseFolder.UserFolder
+                ),
+                DataUnitRemoteFb<UserDataUnitRemoteFb>(
+                    getLoginUserId(),
+                    UserDataUnitRemoteFb(
+                        "kefengxw@qq.com",
+                        mEditTextNickName.text.toString().trim(),
+                        mEditTextCompanyName.text.toString().trim(),
+                        mEditTextRestaurantName.text.toString().trim(),
+                        mEditTextRestaurantAddr.text.toString().trim(),
+                        mEditTextRestaurantFloor.text.toString().trim(),
+                        mEditTextCuisineName.text.toString().trim(),
+                        mBreakfast,
+                        mLunch,
+                        mDinner,
+                        mSquare,
+                        mTableNum,
+                        mEmployeeNum
+                    ),
+                    DataUnitRemoteImageFb(
+                        mRemoteImageAddr,
+                        mRemoteImagePath
+                    )
+                )
+            )
+
+            val it = mViewModel.inputCheck(local)
+            if (ReturnCode.ReturnCode_Success != it) {
+                showInputCheckResult(it)
+                return
+            }
+
+            if (mViewModel.taskIsOngoing()) {
+                showToast("Updating Task running now!")
+                return
+            }
+
+            mViewModel.updateToUser(local)
         }
     }
 
@@ -338,8 +369,6 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
 
     override fun openFileResultSuccessHandle(newImageAddr: String) {
         mLocalImageAddr = newImageAddr
-        mRemoteImageAddr = ""
-        mRemoteImagePath = ""
     }
 
     override fun getBaseActivity(): BaseActivity {
@@ -373,19 +402,22 @@ class EditProfileActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandl
         return if (buffet.isChecked) (type + "Buffet") else type
     }
 
-    private val switchListener = object : View.OnClickListener {
-        override fun onClick(view: View?) {
-            val it = view as SwitchCompat
-            it.isChecked = !it.isChecked
+    private val switchListenerChange = object : CompoundButton.OnCheckedChangeListener {
+        override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+            val it = buttonView as SwitchCompat
+            it.isChecked = isChecked
             when (it) {
                 mBreakfastBuffet -> {
                     mBreakfast = getSwitchResult(it, "breakfast")
+                    showToast("${mBreakfast} is selected")
                 }
                 mLunchBuffet -> {
                     mLunch = getSwitchResult(it, "lunch")
+                    showToast("${mLunch} is selected")
                 }
                 mDinnerBuffet -> {
                     mDinner = getSwitchResult(it, "dinner")
+                    showToast("${mDinner} is selected")
                 }
             }
         }

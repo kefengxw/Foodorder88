@@ -105,11 +105,12 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
 
         if ((caseKey.imageLocalAddr == "") && (caseKey.imageRemoteAddr != "")) {
             //case 1: use remote image, only update the database
-
             handleUpdateWithoutImage(caseKey, remote, result)
         } else if ((caseKey.imageLocalAddr != "") && (caseKey.imageRemoteAddr == "")) {
             //case 1: use local image, directly
-            caseKey.uniqueId = getUniqueIdString()//unique name for this data at firebase
+            if (caseKey.uniqueId != ""){//first time to upload User Profiile
+                caseKey.uniqueId = getUniqueIdString()//unique name for this data at firebase
+            }
             handleUpdateWithImage(caseKey, remote, result)
         } else if ((caseKey.imageLocalAddr != "") && (caseKey.imageRemoteAddr != "")) {
             //case 1: use local image, with old name
@@ -230,4 +231,8 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
     fun getFoodQueryWhereEqualTo(it: String): Query {
         return mDocFood.whereEqualTo("remoteInfo.category", it).orderBy("uniqueId")
     }
+
+
+    //待优化，后续可以拆分为2个firebase的文件，一个负责更新，一个负责查询(大部分情况下是查询操作)；
+
 }

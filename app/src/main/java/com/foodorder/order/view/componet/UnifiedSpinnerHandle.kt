@@ -44,6 +44,10 @@ class UnifiedSpinnerHandle(val mActivity: BaseActivity, list: ArrayList<UnifiedS
         }
     }
 
+    fun updateTheSpinnerPosition(position: Int){
+        mCategorySpinner.setSelection(position, true)
+    }
+
     interface HandleSpinnerResult {
         //if (type == ) to distinguish 2 spinners case
         fun spinnerResult(type: UnifiedSpinnerHandle, item: UnifiedSpinnerItem)

@@ -53,3 +53,19 @@ data class UserDataUnitRemoteFb(    //RemoteT, remotePart
     val tableNumber: String = "",
     val employeeNumber: String = ""
 )
+
+class DataUnitQueryCase(
+    var imageLocalAddr: String = "",
+    var imageRemoteAddr: String = "",
+    var uniqueId: String = "",
+    val folder: FireBaseFolder
+)
+
+class GetUserDataUnitRemoteFb {      //same as DataUnitRemoteFb<UserDataUnitRemoteFb>
+
+    var uniqueId: String = ""       //means that, to describe this data at firebase, just for verification
+    var remoteInfo: UserDataUnitRemoteFb = UserDataUnitRemoteFb()
+    var remoteImage: DataUnitRemoteImageFb = DataUnitRemoteImageFb()
+
+    constructor() {} // Needed for Firebase
+}

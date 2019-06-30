@@ -11,6 +11,7 @@ import com.foodorder.order.model.data.Resource
 import com.foodorder.order.model.data.Status
 import com.foodorder.order.model.data.Status.*
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepositoryFactory
+import com.foodorder.order.model.firebase.FirebaseCloudQueryRepositoryFactory
 import com.foodorder.order.util.SecuritySharedPreferencesFactory
 import com.foodorder.order.util.UtilInternalFunction.saveUserDataForNextOpen
 import com.foodorder.order.view.activity.BaseActivity
@@ -104,6 +105,7 @@ abstract class BaseLoginHandle(
         //同时，在logout的时候，需要除去这个
         //可以移动到进入setting页面的时候，才考虑启动这个Instance
         FirebaseCloudDbRepositoryFactory.getInstanceFbCloudDbRepos()
+        FirebaseCloudQueryRepositoryFactory.getInstanceFbCloudQueryRepos()
     }
 
     abstract fun provideProgressId(): Int

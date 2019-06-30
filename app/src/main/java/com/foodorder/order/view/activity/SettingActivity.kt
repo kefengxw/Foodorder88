@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
 import com.foodorder.order.R
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepositoryFactory
+import com.foodorder.order.model.firebase.FirebaseCloudQueryRepositoryFactory
 import com.foodorder.order.util.SecuritySharedPreferencesFactory
 import com.foodorder.order.util.UtilInternalFunction.saveUserDataForNextOpen
 import com.foodorder.order.view.activity.InitialActivity.Companion.startInitialActivity
@@ -81,6 +82,7 @@ class SettingActivity : BaseActivity(),
 
     override fun ApplyLogout() {
         FirebaseCloudDbRepositoryFactory.destroyInstanceFbCloudDbRepos()
+        FirebaseCloudQueryRepositoryFactory.destroyInstanceFbCloudQueryRepos()
 
         mViewModel.doLogOut()
 

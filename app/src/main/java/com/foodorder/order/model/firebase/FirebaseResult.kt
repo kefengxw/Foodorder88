@@ -12,3 +12,15 @@ data class FirebaseResult(
         fun errorFbData(msg: String?) = FirebaseResult(Status.ERROR, msg)
     }
 }
+
+data class FirebaseUserResult(
+    val mStatus: Status,
+    val mUser: GetUserDataUnitRemoteFb? = null,
+    val mMsg: String? = null
+) {
+    companion object {
+        fun loadingFbUserData() = FirebaseUserResult(Status.LOADING)
+        fun successFbUserData(user: GetUserDataUnitRemoteFb?) = FirebaseUserResult(Status.SUCCESS, user)
+        fun errorFbUserData(msg: String?) = FirebaseUserResult(Status.ERROR, mMsg = msg)
+    }
+}

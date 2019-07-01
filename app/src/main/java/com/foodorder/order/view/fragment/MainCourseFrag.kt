@@ -1,13 +1,29 @@
 package com.foodorder.order.view.fragment
 
 import android.os.Bundle
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.foodorder.order.R
+import com.foodorder.order.model.data.GlideApp
+import com.foodorder.order.model.data.GlideRequests
+import com.foodorder.order.model.data.InternalStatusConfiguration
 import com.foodorder.order.model.data.SectionFragmentGuest
+import com.foodorder.order.view.activity.BaseRecyclerView
+import com.foodorder.order.view.adapter.FoodDisplayItemAdapter
+import com.foodorder.order.view.adapter.FoodDisplayItemClick
+import com.foodorder.order.view.adapter.FoodDisplayItemHolder
+import com.foodorder.order.view.adapter.OverviewFoodItem
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
-class MainCourseFrag : BaseFragmentWithItemClick() {
+class MainCourseFrag : BaseFragment(),
+    BaseRecyclerView<FoodDisplayItemHolder, FoodDisplayItemAdapter>,
+    FoodDisplayItemClick {
 
-    //override lateinit var mRecyclerView: RecyclerView
-    //override lateinit var mAdapter: OverviewItemAdapter
+    override lateinit var mRecyclerView: RecyclerView
+    override lateinit var mAdapter: FoodDisplayItemAdapter
 
     companion object {
         fun newInstance(param: SectionFragmentGuest): BaseFragment {
@@ -19,35 +35,75 @@ class MainCourseFrag : BaseFragmentWithItemClick() {
         }
     }
 
+    override fun initViewComm(view: View) {
+
+    }
+
+    override fun initViewListener(view: View) {
+
+    }
+
+    override fun initLocalProcess() {
+        initRecycler()
+    }
+
+    override fun initOnStart() {
+        startRecyclerViewListening()
+    }
+
+    override fun handleOnStop() {
+        stopRecyclerViewListening()
+    }
+
     override fun providedFragmentLayoutId(): Int {
         return R.layout.main_course_layout
     }
 
-//    override fun initRecyclerView(): RecyclerView {
-//        return baseFragFindViewById(R.id.main_course_tab_layout)
-//    }
-//
-//    override fun initRecyclerViewAdapter(): OverviewItemAdapter {
-//        return getRecyclerViewAdapter()
-//    }
-//
-//    override fun getGlide(): GlideRequests {
-//        return GlideApp.with(this)
-//    }
-//
-//    override fun getLayoutManager(): LinearLayoutManager {
-//        return LinearLayoutManager(context)
-//    }
-//
-//    override fun getQuery(): Query {
-//        return mViewModel.getQueryWhereEqualTo(mCategory)
-//    }
-//
-//    override fun doActionOnRecyclerViewItemClick(actionData: OverviewItem, position: Int) {
-//        handleItemOrderOverview( , ,this)
-//    }
-//
-//    override fun doActionOnRecyclerViewItemSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//        //do nothing here
-//    }
+    private fun initRecycler() {
+        mRecyclerView = initRecyclerView()
+        mAdapter = initRecyclerViewAdapter()
+
+        initializeRecyclerView()
+    }
+
+    override fun initRecyclerView(): RecyclerView {
+        return baseFragFindViewById(R.id.main_course_tab_layout)
+    }
+
+    override fun createRecyclerViewAdapter(
+        options: FirestoreRecyclerOptions<OverviewFoodItem>,
+        glide: GlideRequests
+    ): FoodDisplayItemAdapter {
+        return FoodDisplayItemAdapter(options, glide)
+    }
+
+    override fun initRecyclerViewAdapter(): FoodDisplayItemAdapter {
+        return getRecyclerViewAdapter()
+    }
+
+    override fun getGlide(): GlideRequests {
+        return GlideApp.with(this)
+    }
+
+    override fun getLayoutManager(): LinearLayoutManager {
+        return LinearLayoutManager(mBaseCtx)
+    }
+
+    override fun getQuery(): Query {
+        //后续优化，需要考虑dagger
+        val mFbCloudDatabase: FirebaseFirestore = FirebaseFirestore.getInstance()
+        val mCoName: String = InternalStatusConfiguration.getLoginUserId()
+        val mDbCoRef = mFbCloudDatabase.collection(mCoName)
+        val mDocFood = mDbCoRef.document("food").collection("food")
+
+        return mDocFood.orderBy("uniqueId", Query.Direction.ASCENDING)
+    }
+
+    override fun doActionOnRecyclerViewItemClick(itemView: View, actionData: OverviewFoodItem, position: Int) {
+        handleDisplayItemClick(itemView, activity!!)
+    }
+
+    override fun doActionOnRecyclerViewItemSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+        //do nothing here
+    }
 }

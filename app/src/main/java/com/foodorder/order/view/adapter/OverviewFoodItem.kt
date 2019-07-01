@@ -5,7 +5,7 @@ import android.os.Parcelable
 import com.foodorder.order.model.firebase.DataUnitRemoteImageFb
 import com.foodorder.order.model.firebase.FoodDataUnitRemoteFb
 
-class OverviewItem : Parcelable {
+class OverviewFoodItem : Parcelable {
     var uniqueId: String = ""//default key
     var remoteInfo: FoodDataUnitRemoteFb = FoodDataUnitRemoteFb()
     var remoteImage: DataUnitRemoteImageFb = DataUnitRemoteImageFb()
@@ -38,12 +38,12 @@ class OverviewItem : Parcelable {
         }
     }
 
-    companion object CREATOR : Parcelable.Creator<OverviewItem> {
-        override fun createFromParcel(it: Parcel): OverviewItem {
-            return OverviewItem(it)
+    companion object CREATOR : Parcelable.Creator<OverviewFoodItem> {
+        override fun createFromParcel(it: Parcel): OverviewFoodItem {
+            return OverviewFoodItem(it)
         }
 
-        override fun newArray(size: Int): Array<OverviewItem?> {
+        override fun newArray(size: Int): Array<OverviewFoodItem?> {
             return arrayOfNulls(size)
         }
     }

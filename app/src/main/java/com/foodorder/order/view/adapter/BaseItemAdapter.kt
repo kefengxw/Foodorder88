@@ -12,9 +12,9 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
 
 abstract class BaseItemAdapter<T : BaseItemHolder>(
-    options: FirestoreRecyclerOptions<OverviewItem>,
+    options: FirestoreRecyclerOptions<OverviewFoodItem>,
     glide: GlideRequests
-) : FirestoreRecyclerAdapter<OverviewItem, T>(options) {
+) : FirestoreRecyclerAdapter<OverviewFoodItem, T>(options) {
 
     private var mItemClick: OnItemClickInterface? = null
     private val mGlide: GlideRequests = glide
@@ -23,11 +23,11 @@ abstract class BaseItemAdapter<T : BaseItemHolder>(
         return createItemHolder(parent, mItemClick)
     }
 
-    override fun onBindViewHolder(holder: T, position: Int, item: OverviewItem) {
+    override fun onBindViewHolder(holder: T, position: Int, item: OverviewFoodItem) {
         holder.bindView(item, mGlide)
     }
 
-    override fun getItem(position: Int): OverviewItem {
+    override fun getItem(position: Int): OverviewFoodItem {
         return super.getItem(position)
     }
 
@@ -51,7 +51,7 @@ abstract class BaseItemAdapter<T : BaseItemHolder>(
         return snapshots.getSnapshot(position).reference
     }
 
-    fun getSnapshot(): ObservableSnapshotArray<OverviewItem> {
+    fun getSnapshot(): ObservableSnapshotArray<OverviewFoodItem> {
         return snapshots
     }
 
@@ -64,7 +64,7 @@ abstract class BaseItemAdapter<T : BaseItemHolder>(
     }
 
     interface OnItemClickInterface {
-        fun onItemClick(snapshot: DocumentSnapshot, position: Int)
+        fun onItemClick(itemView: View, snapshot: DocumentSnapshot, position: Int)
     }
 
     fun setOnItemClick(it: OnItemClickInterface) {
@@ -75,7 +75,7 @@ abstract class BaseItemAdapter<T : BaseItemHolder>(
     abstract fun getItemHolder(
         itemView: View,
         click: BaseItemAdapter.OnItemClickInterface?,
-        snapshots: ObservableSnapshotArray<OverviewItem>
+        snapshots: ObservableSnapshotArray<OverviewFoodItem>
     ): T
 
     private fun createItemHolder(parent: ViewGroup, clickInterface: OnItemClickInterface?): T {

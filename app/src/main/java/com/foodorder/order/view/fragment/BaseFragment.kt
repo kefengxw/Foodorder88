@@ -46,20 +46,17 @@ abstract class BaseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initView(mBaseView!!)
-        initObserve()
     }
 
     private fun initView(view: View) {
         initViewComm(view)
-        //init Data, init Listener if need
         initViewListener(view)
+        initLocalProcess()
     }
 
-    protected open fun initViewComm(view: View) {}
-
-    protected open fun initViewListener(view: View) {}
-
-    protected open fun initObserve() {}
+    abstract fun initViewComm(view: View)
+    abstract fun initViewListener(view: View)
+    abstract fun initLocalProcess()
 
     fun showToast(msg: String) {
         Toast.makeText(mBaseCtx!!, msg, Toast.LENGTH_SHORT).show()
@@ -67,5 +64,18 @@ abstract class BaseFragment : Fragment() {
 
     fun <T : View> baseFragFindViewById(id: Int): T {
         return mBaseView!!.findViewById<T>(id)
+    }
+
+    protected abstract fun initOnStart()
+    protected abstract fun handleOnStop()
+
+    override fun onStart() {
+        super.onStart()
+        initOnStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handleOnStop()
     }
 }

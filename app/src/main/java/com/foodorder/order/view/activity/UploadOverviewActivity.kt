@@ -12,21 +12,20 @@ import com.foodorder.order.R
 import com.foodorder.order.model.data.GlideApp
 import com.foodorder.order.model.data.GlideRequests
 import com.foodorder.order.view.activity.UploadEditActivity.Companion.startUploadEditActivity
-import com.foodorder.order.view.adapter.OverviewItem
-//import com.foodorder.order.view.adapter.OverviewItemAdapter
-import com.foodorder.order.view.adapter.UploadItemAdapter
-import com.foodorder.order.view.adapter.UploadItemHolder
+import com.foodorder.order.view.adapter.FoodUploadItemAdapter
+import com.foodorder.order.view.adapter.FoodUploadItemHolder
+import com.foodorder.order.view.adapter.OverviewFoodItem
 import com.foodorder.order.view.componet.UnifiedButton
 import com.foodorder.order.viewmodel.UploadOverviewModel
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.upload_overview_activity.*
 
-class UploadOverviewActivity : BaseActivity(), BaseRecyclerView<UploadItemHolder, UploadItemAdapter> {
+class UploadOverviewActivity : BaseActivity(), BaseRecyclerView<FoodUploadItemHolder, FoodUploadItemAdapter> {
 
     private lateinit var mViewModel: UploadOverviewModel
     private lateinit var mAddBtn: UnifiedButton
     override lateinit var mRecyclerView: RecyclerView
-    override lateinit var mAdapter: UploadItemAdapter//OverviewItemAdapter
+    override lateinit var mAdapter: FoodUploadItemAdapter
     private var mCategory: String = ""
 
     companion object {
@@ -109,7 +108,7 @@ class UploadOverviewActivity : BaseActivity(), BaseRecyclerView<UploadItemHolder
         mRecyclerView = initRecyclerView()
         mAdapter = initRecyclerViewAdapter()
 
-        initializeRecyclerView()
+        initializeRecyclerView(true)
     }
 
     override fun initRecyclerView(): RecyclerView {
@@ -117,13 +116,13 @@ class UploadOverviewActivity : BaseActivity(), BaseRecyclerView<UploadItemHolder
     }
 
     override fun createRecyclerViewAdapter(
-        options: FirestoreRecyclerOptions<OverviewItem>,
+        options: FirestoreRecyclerOptions<OverviewFoodItem>,
         glide: GlideRequests
-    ): UploadItemAdapter {
-        return UploadItemAdapter(options, glide)
+    ): FoodUploadItemAdapter {
+        return FoodUploadItemAdapter(options, glide)
     }
 
-    override fun initRecyclerViewAdapter(): UploadItemAdapter/*OverviewItemAdapter*/ {
+    override fun initRecyclerViewAdapter(): FoodUploadItemAdapter {
         return getRecyclerViewAdapter()
     }
 
@@ -140,7 +139,7 @@ class UploadOverviewActivity : BaseActivity(), BaseRecyclerView<UploadItemHolder
         return mViewModel.getQueryWhereEqualTo(mCategory)
     }
 
-    override fun doActionOnRecyclerViewItemClick(actionData: OverviewItem, position: Int) {
+    override fun doActionOnRecyclerViewItemClick(itemView: View, actionData: OverviewFoodItem, position: Int) {
         showToast("Item onItemClick! the Position: $position")
         startUploadEditActivity(mBaseCtx, actionData)
     }

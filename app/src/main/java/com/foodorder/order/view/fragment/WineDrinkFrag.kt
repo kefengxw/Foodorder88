@@ -1,6 +1,7 @@
 package com.foodorder.order.view.fragment
 
 import android.os.Bundle
+import android.view.View
 import com.foodorder.order.R
 import com.foodorder.order.model.data.InternalDataConfiguration.getItemNumberWineDrink
 import com.foodorder.order.model.data.SectionFragmentGuest
@@ -15,6 +16,26 @@ class WineDrinkFrag : BaseFragmentWithItemOrder() {
             }
             return it
         }
+    }
+
+    override fun initViewComm(view: View) {
+
+    }
+
+    override fun initViewListener(view: View) {
+
+    }
+
+    override fun initLocalProcess() {
+
+    }
+
+    override fun initOnStart() {
+
+    }
+
+    override fun handleOnStop() {
+
     }
 
     override fun providedFragmentLayoutId(): Int {

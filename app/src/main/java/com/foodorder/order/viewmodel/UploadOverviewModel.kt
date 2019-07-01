@@ -3,7 +3,7 @@ package com.foodorder.order.viewmodel
 import android.app.Application
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepository
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepositoryFactory
-import com.foodorder.order.view.adapter.OverviewItem
+import com.foodorder.order.view.adapter.OverviewFoodItem
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Query
 
@@ -23,7 +23,7 @@ class UploadOverviewModel(app: Application) : BaseViewModel(app) {
         return mFbCloudDbRepos.getFoodQueryWhereEqualTo(it)
     }
 
-    fun deleteFood(docRef: DocumentReference, item: OverviewItem) {
+    fun deleteFood(docRef: DocumentReference, item: OverviewFoodItem) {
         mFbCloudDbRepos.deleteFromFood(docRef, item)
     }
 

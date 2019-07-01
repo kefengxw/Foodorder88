@@ -44,7 +44,7 @@ class UnifiedSpinnerHandle(val mActivity: BaseActivity, list: ArrayList<UnifiedS
         }
     }
 
-    fun updateTheSpinnerPosition(position: Int){
+    fun updateTheSpinnerPosition(position: Int) {
         mCategorySpinner.setSelection(position, true)
     }
 

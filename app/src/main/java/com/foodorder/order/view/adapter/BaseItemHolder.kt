@@ -8,7 +8,7 @@ import com.foodorder.order.model.data.GlideRequests
 abstract class BaseItemHolder(
     itemView: View,
     click: BaseItemAdapter.OnItemClickInterface?,
-    snapshots: ObservableSnapshotArray<OverviewItem>
+    snapshots: ObservableSnapshotArray<OverviewFoodItem>
 ) : RecyclerView.ViewHolder(itemView) {
 
     private val mItemView = itemView
@@ -18,7 +18,7 @@ abstract class BaseItemHolder(
 
         val position = adapterPosition
         if (position != RecyclerView.NO_POSITION) {
-            mItemClickInterface?.onItemClick(mSnapshots.getSnapshot(position), position)
+            mItemClickInterface?.onItemClick(mItemView, mSnapshots.getSnapshot(position), position)
         }
     }
 
@@ -31,5 +31,5 @@ abstract class BaseItemHolder(
         return mItemView.findViewById<T>(id)
     }
 
-    abstract fun bindView(it: OverviewItem, glide: GlideRequests)
+    abstract fun bindView(it: OverviewFoodItem, glide: GlideRequests)
 }

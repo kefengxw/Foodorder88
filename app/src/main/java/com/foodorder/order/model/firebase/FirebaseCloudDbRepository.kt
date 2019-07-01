@@ -10,7 +10,7 @@ import com.foodorder.order.model.data.InternalStatusConfiguration.getLoginUserId
 import com.foodorder.order.model.firebase.FirebaseResult.Companion.errorFbData
 import com.foodorder.order.model.firebase.FirebaseResult.Companion.loadingFbData
 import com.foodorder.order.model.firebase.FirebaseResult.Companion.successFbData
-import com.foodorder.order.view.adapter.OverviewItem
+import com.foodorder.order.view.adapter.OverviewFoodItem
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
@@ -85,7 +85,7 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
         return addOrUpdateData(localData)
     }
 
-    fun deleteFromFood(docRef: DocumentReference, item: OverviewItem) {
+    fun deleteFromFood(docRef: DocumentReference, item: OverviewFoodItem) {
         //delete picture first, and then update the database
         docRef.delete()//delete database
 

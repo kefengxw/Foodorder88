@@ -14,7 +14,7 @@ import com.foodorder.order.model.data.ReturnCode.*
 import com.foodorder.order.model.data.Status
 import com.foodorder.order.model.data.Status.LOADING
 import com.foodorder.order.model.firebase.*
-import com.foodorder.order.view.adapter.OverviewItem
+import com.foodorder.order.view.adapter.OverviewFoodItem
 import com.foodorder.order.view.componet.*
 import com.foodorder.order.viewmodel.UploadEditViewModel
 import kotlinx.android.synthetic.main.upload_edit_activity.*
@@ -52,15 +52,15 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
             return x
         }
 
-        fun startUploadEditActivity(ctx: Context, input: OverviewItem) {
+        fun startUploadEditActivity(ctx: Context, input: OverviewFoodItem) {
             val intent = Intent(ctx, UploadEditActivity::class.java)
             //val bundle = Bundle()
             intent.putExtra("bundleData", input)
             ctx.startActivity(intent)
         }
 
-        fun decodeBundleData(it: UploadEditActivity): OverviewItem? {
-            return it.intent.getParcelableExtra<OverviewItem>("bundleData")
+        fun decodeBundleData(it: UploadEditActivity): OverviewFoodItem? {
+            return it.intent.getParcelableExtra<OverviewFoodItem>("bundleData")
         }
     }
 
@@ -171,7 +171,7 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
         return index
     }
 
-    private fun handleRemoteFoodData(it: OverviewItem) {
+    private fun handleRemoteFoodData(it: OverviewFoodItem) {
         mUniqueId = it.uniqueId
         mEditTextName.setText(it.remoteInfo.name)
         mEditTextPrice.setText(it.remoteInfo.price)
@@ -180,7 +180,7 @@ class UploadEditActivity : BaseActivity(), ImageViewHandle, UnifiedSpinnerHandle
         mRemoteImageAddr = it.remoteImage.imageRemoteAddr
         mRemoteImagePath = it.remoteImage.imageRemotePath
         //mPriority = it.priority//后续待优化
-        if (mRemoteImageAddr == ""){
+        if (mRemoteImageAddr == "") {
             //error here
         }
         displayImageWithAddr(mRemoteImageAddr)

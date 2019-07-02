@@ -7,6 +7,7 @@ import com.foodorder.order.model.data.InternalDataConfiguration.getItemNumberSta
 import com.foodorder.order.model.data.SectionFragmentGuest
 import com.foodorder.order.view.componet.UnifiedImageView
 import com.foodorder.order.view.componet.UnifiedTextView
+import com.foodorder.order.viewmodel.HomeViewModel
 
 class StarterFrag : BaseFragmentWithItemOrder() {
 
@@ -26,6 +27,10 @@ class StarterFrag : BaseFragmentWithItemOrder() {
     }
 
     override fun initViewComm(view: View) {
+
+    }
+
+    override fun initViewModelObserver(viewModel: HomeViewModel) {
 
     }
 

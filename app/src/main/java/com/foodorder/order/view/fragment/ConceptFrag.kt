@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.foodorder.order.R
 import com.foodorder.order.model.data.SectionFragmentGuest
+import com.foodorder.order.viewmodel.HomeViewModel
 
 class ConceptFrag : BaseFragment() {
 
@@ -18,6 +19,10 @@ class ConceptFrag : BaseFragment() {
     }
 
     override fun initViewComm(view: View) {
+
+    }
+
+    override fun initViewModelObserver(viewModel: HomeViewModel) {
 
     }
 

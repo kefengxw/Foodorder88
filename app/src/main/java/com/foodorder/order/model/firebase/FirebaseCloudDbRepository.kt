@@ -233,7 +233,6 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
         return mDocFood.whereEqualTo("remoteInfo.category", it).orderBy("uniqueId")
     }
 
-
     //待优化，后续可以拆分为2个firebase的文件，一个负责更新，一个负责查询(大部分情况下是查询操作)；
 
 }

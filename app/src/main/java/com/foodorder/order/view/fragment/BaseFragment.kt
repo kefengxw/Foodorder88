@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import com.foodorder.order.viewmodel.HomeViewModel
 
 abstract class BaseFragment : Fragment() {
     //protected var mViewModel: ShareViewModel? = null
     protected var mBaseCtx: Context? = null
     protected var mBaseView: View? = null
+    protected lateinit var mViewModel: HomeViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -22,7 +25,7 @@ abstract class BaseFragment : Fragment() {
     private fun getViewModel() {
         //Notice, this is the shared view model, share data between these fragments,owner is getActivity()
         //Only get one/same instance of mViewModel
-        //mViewModel = ViewModelProviders.of(activity!!).get(ShareViewModel::class.java)
+        mViewModel = ViewModelProviders.of(activity!!).get(HomeViewModel::class.java)
     }
 
     protected abstract fun providedFragmentLayoutId(): Int
@@ -50,11 +53,13 @@ abstract class BaseFragment : Fragment() {
 
     private fun initView(view: View) {
         initViewComm(view)
+        initViewModelObserver(mViewModel)
         initViewListener(view)
         initLocalProcess()
     }
 
     abstract fun initViewComm(view: View)
+    abstract fun initViewModelObserver(viewModel: HomeViewModel)
     abstract fun initViewListener(view: View)
     abstract fun initLocalProcess()
 

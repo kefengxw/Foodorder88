@@ -5,6 +5,7 @@ import android.view.View
 import com.foodorder.order.R
 import com.foodorder.order.model.data.InternalDataConfiguration.getItemNumberDessert
 import com.foodorder.order.model.data.SectionFragmentGuest
+import com.foodorder.order.viewmodel.HomeViewModel
 
 class DessertFrag : BaseFragmentWithItemOrder() {
 
@@ -22,9 +23,14 @@ class DessertFrag : BaseFragmentWithItemOrder() {
 
     }
 
+    override fun initViewModelObserver(viewModel: HomeViewModel) {
+
+    }
+
     override fun initViewListener(view: View) {
 
     }
+
 
     override fun initLocalProcess() {
 

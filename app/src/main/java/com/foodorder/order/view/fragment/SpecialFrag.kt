@@ -5,6 +5,7 @@ import android.view.View
 import com.foodorder.order.R
 import com.foodorder.order.model.data.InternalDataConfiguration.getItemNumberSpecial
 import com.foodorder.order.model.data.SectionFragmentGuest
+import com.foodorder.order.viewmodel.HomeViewModel
 
 class SpecialFrag : BaseFragmentWithItemOrder() {
 
@@ -19,6 +20,10 @@ class SpecialFrag : BaseFragmentWithItemOrder() {
     }
 
     override fun initViewComm(view: View) {
+
+    }
+
+    override fun initViewModelObserver(viewModel: HomeViewModel) {
 
     }
 

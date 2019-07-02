@@ -6,13 +6,14 @@ import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.PagedList
-import com.foodorder.order.model.data.InternalDataConfiguration
-import com.foodorder.order.model.data.NetworkState
-import com.foodorder.order.model.data.Resource
-import com.foodorder.order.model.data.ResourceListing
+import com.foodorder.order.model.data.*
+import com.foodorder.order.model.firebase.FirebaseCloudDbRepository
+import com.foodorder.order.model.firebase.FirebaseCloudDbRepositoryFactory
 import com.foodorder.order.model.paging.RemoteDataPageRepository
 import com.foodorder.order.model.repository.DataRepository
 import com.foodorder.order.model.repository.DisplayItem
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class HomeViewModel(app: Application) : BaseViewModelWithLogin(app) {
 
@@ -24,10 +25,12 @@ class HomeViewModel(app: Application) : BaseViewModelWithLogin(app) {
     private lateinit var mResultData: LiveData<PagedList<DisplayItem>>
     private lateinit var mResultState: LiveData<NetworkState>
     private var mPrevLength = 0
+    private lateinit var mFbCloudDbRepos: FirebaseCloudDbRepository
 
     override fun initSubViewModel(app: Application) {
         mReposData = mInstanceApp.mInstanceRepos
         mPageRepos = mInstanceApp.mInstancePageRepos
+        mFbCloudDbRepos = FirebaseCloudDbRepositoryFactory.getInstanceFbCloudDbRepos()
         doUserAuth()
         initFilterData()
     }
@@ -78,7 +81,15 @@ class HomeViewModel(app: Application) : BaseViewModelWithLogin(app) {
 
     private fun test() {}
 
+    fun getQuery(): Query {
+        //后续优化，需要考虑dagger
+//        val mFbCloudDatabase: FirebaseFirestore = FirebaseFirestore.getInstance()
+//        val mCoName: String = InternalStatusConfiguration.getLoginUserId()
+//        val mDbCoRef = mFbCloudDatabase.collection(mCoName)
+//        val mDocFood = mDbCoRef.document("food").collection("food")
+//
+//        return mDocFood.orderBy("uniqueId", Query.Direction.ASCENDING)
 
-
-
+        return mFbCloudDbRepos.getFoodQueryOrderByKey()
+    }
 }

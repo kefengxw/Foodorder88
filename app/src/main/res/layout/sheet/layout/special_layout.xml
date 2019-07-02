@@ -16,35 +16,35 @@
 
         <include
                 android:id="@+id/special_order_item_ov1"
-                layout="@layout/order_item_overview"/>
+                layout="@layout/order_item_overview_old"/>
 
         <include
                 android:id="@+id/special_order_item_ov2"
-                layout="@layout/order_item_overview"/>
+                layout="@layout/order_item_overview_old"/>
 
         <include
                 android:id="@+id/special_order_item_ov3"
-                layout="@layout/order_item_overview"/>
+                layout="@layout/order_item_overview_old"/>
 
         <include
                 android:id="@+id/special_order_item_ov4"
-                layout="@layout/order_item_overview"/>
+                layout="@layout/order_item_overview_old"/>
 
         <include
                 android:id="@+id/special_order_item_ov5"
-                layout="@layout/order_item_overview"/>
+                layout="@layout/order_item_overview_old"/>
 
         <include
                 android:id="@+id/special_order_item_ov6"
-                layout="@layout/order_item_overview"/>
+                layout="@layout/order_item_overview_old"/>
 
         <include
                 android:id="@+id/special_order_item_ov7"
-                layout="@layout/order_item_overview"/>
+                layout="@layout/order_item_overview_old"/>
 
         <include
                 android:id="@+id/special_order_item_ov8"
-                layout="@layout/order_item_overview"/>
+                layout="@layout/order_item_overview_old"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -16,6 +16,17 @@
                 android:id="@+id/nav_theme"
                 android:icon="@drawable/ic_menu_slideshow"
                 android:title="@string/menu_theme"/>
+
+        <item
+                android:id="@+id/nav_chefWaiter"
+                android:icon="@drawable/ic_menu_slideshow"
+                android:title="@string/menu_chefWaiter"/>
+
+        <item
+                android:id="@+id/nav_manager"
+                android:icon="@drawable/ic_menu_slideshow"
+                android:title="@string/menu_manager"/>
+
         <item
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/ic_menu_manage"

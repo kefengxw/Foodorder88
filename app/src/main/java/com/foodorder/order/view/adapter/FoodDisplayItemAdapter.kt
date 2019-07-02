@@ -12,7 +12,7 @@ class FoodDisplayItemAdapter(
 ) : BaseItemAdapter<FoodDisplayItemHolder>(options, glide) {
 
     override fun getItemLayout(): Int {
-        return R.layout.order_item_overview_main
+        return R.layout.order_item_overview
     }
 
     override fun getItemHolder(

@@ -2,6 +2,8 @@ package com.foodorder.order.view.activity
 
 import android.content.Context
 import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.View.INVISIBLE
 import android.widget.Toast
@@ -144,8 +146,17 @@ class HomeActivity : BaseActivity(),
         mDrawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        //mDrawerLayout.setDrawerTitle()
+
         mNaviView = home_activity_navi
         mNaviView.setNavigationItemSelectedListener(naviListener)
+
+        if (true) { //这一段代码放到onstart之中进行检查
+            val menu = mNaviView.menu
+            val item = menu.findItem(R.id.nav_chefWaiter)
+            item.isVisible = false
+        }
+
 
         mFabtn = findViewById(R.id.fab)
         mFabtn.setOnClickListener { view ->
@@ -260,17 +271,6 @@ class HomeActivity : BaseActivity(),
         mViewModel.doLogin(AuthData(username, password))
     }
 
-
-    /*    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.uniqueId) {
-            R.uniqueId.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }*/
-
 /*    private fun buildRecyclerView() {
         mRecyclerView = findViewById(R.uniqueId.recycler_view)
         mRecyclerView.layoutManager = LinearLayoutManager(mCtx)
@@ -307,22 +307,40 @@ class HomeActivity : BaseActivity(),
         progress_bar.visibility = INVISIBLE
     }*/
 
-    //search bar
-/*    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    //notification and order status overview
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         super.onCreateOptionsMenu(menu)
 
         val inflater = menuInflater
-        inflater.inflate(R.menu.menu_search, menu)
+        inflater.inflate(R.menu.menu_home, menu)
 
-        val searchItem = menu.findItem(R.uniqueId.app_bar_search)
-        val searchView = searchItem.actionView as SearchView
+        val item1 = menu.findItem(R.id.home_tool_bar_search)
+        val item2 = menu.findItem(R.id.home_tool_bar_status)
+        //val searchView = searchItem.actionView as SearchView
 
-        searchView.imeOptions = EditorInfo.IME_ACTION_DONE
-        searchView.setOnQueryTextListener(searchListener)
+        //searchView.imeOptions = EditorInfo.IME_ACTION_DONE
+        //searchView.setOnQueryTextListener(searchListener)
         //searchView.setQueryHint(DEFAULT_SEARCH_VIEW_HINT);
         //searchView.setIconifiedByDefault(false);//Icon always display
         return true
-    }*/
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return when (item!!.itemId) {
+            R.id.home_tool_bar_search -> {
+                showToast("Search is Clicked")
+                true
+            }
+            R.id.home_tool_bar_status -> {
+                showToast("Status is Clicked")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     private val itemListener = object : RecyclerAdapter.OnItemClickListener {
         override fun onItemClick(position: Int) {

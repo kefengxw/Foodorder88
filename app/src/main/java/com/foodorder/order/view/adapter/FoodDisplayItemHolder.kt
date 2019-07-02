@@ -26,5 +26,7 @@ class FoodDisplayItemHolder(
         } else {
             glide.load(R.drawable.orange).into(mItemImage)
         }
+
+
     }
 }

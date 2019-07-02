@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+            android:id="@+id/home_tool_bar_search"
+            android:icon="@drawable/ic_search_white"
+            android:title="@string/item_search_view_hint"
+            app:actionViewClass="androidx.appcompat.widget.SearchView"
+            app:queryHint="@string/item_search_view_hint"
+            app:showAsAction="ifRoom|collapseActionView"/>
+
+    <!--app:actionViewClass="androidx.appcompat.widget.SearchView"-->
+
+    <item
+            android:id="@+id/home_tool_bar_status"
+            android:icon="@drawable/ic_menu_feedback"
+            android:title="Status"
+            app:showAsAction="ifRoom|collapseActionView"/>
+</menu>

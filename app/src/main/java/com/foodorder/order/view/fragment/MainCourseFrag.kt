@@ -8,7 +8,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.foodorder.order.R
 import com.foodorder.order.model.data.GlideApp
 import com.foodorder.order.model.data.GlideRequests
-import com.foodorder.order.model.data.InternalStatusConfiguration
 import com.foodorder.order.model.data.SectionFragmentGuest
 import com.foodorder.order.view.activity.BaseRecyclerView
 import com.foodorder.order.view.adapter.FoodDisplayItemAdapter
@@ -16,7 +15,6 @@ import com.foodorder.order.view.adapter.FoodDisplayItemClick
 import com.foodorder.order.view.adapter.FoodDisplayItemHolder
 import com.foodorder.order.view.adapter.OverviewFoodItem
 import com.foodorder.order.viewmodel.HomeViewModel
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
 class MainCourseFrag : BaseFragment(),
@@ -96,12 +94,6 @@ class MainCourseFrag : BaseFragment(),
 
     override fun getQuery(): Query {
         //后续优化，需要考虑dagger
-//        val mFbCloudDatabase: FirebaseFirestore = FirebaseFirestore.getInstance()
-//        val mCoName: String = InternalStatusConfiguration.getLoginUserId()
-//        val mDbCoRef = mFbCloudDatabase.collection(mCoName)
-//        val mDocFood = mDbCoRef.document("food").collection("food")
-//
-//        return mDocFood.orderBy("uniqueId", Query.Direction.ASCENDING)
         return mViewModel.getQuery()
     }
 

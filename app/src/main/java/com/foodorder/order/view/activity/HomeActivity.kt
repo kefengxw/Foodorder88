@@ -28,7 +28,10 @@ import com.foodorder.order.model.data.Status.*
 import com.foodorder.order.model.repository.DisplayData
 import com.foodorder.order.model.repository.DisplayItem
 import com.foodorder.order.view.activity.AboutActivity.Companion.startAboutActivity
+import com.foodorder.order.view.activity.ChefWaiterActivity.Companion.startChefWaiterActivity
+import com.foodorder.order.view.activity.FoodStatusDisplayActivity.Companion.startFoodStatusDisplayActivity
 import com.foodorder.order.view.activity.InitialActivity.Companion.startInitialActivity
+import com.foodorder.order.view.activity.ManagerActivity.Companion.startManagerActivity
 import com.foodorder.order.view.activity.SubmitActivity.Companion.startSubmitActivity
 import com.foodorder.order.view.activity.UploadEditActivity.Companion.startUploadEditActivity
 import com.foodorder.order.view.activity.UploadOverviewActivity.Companion.startUploadOverviewActivity
@@ -242,6 +245,14 @@ class HomeActivity : BaseActivity(),
             R.id.nav_setting -> {
                 startLoginDialog(supportFragmentManager, getLoginUserEmail())
             }
+            R.id.nav_chefWaiter -> {
+                Toast.makeText(this, "hello nav_ChefWaiter", Toast.LENGTH_SHORT).show()
+                startChefWaiterActivity(this)
+            }
+            R.id.nav_manager -> {
+                Toast.makeText(this, "hello nav_manager", Toast.LENGTH_SHORT).show()
+                startManagerActivity(this)
+            }
             R.id.nav_feedback -> {
                 Toast.makeText(this, "hello UploadOverviewActivity", Toast.LENGTH_SHORT).show()
                 startUploadOverviewActivity(this)
@@ -335,6 +346,7 @@ class HomeActivity : BaseActivity(),
                 true
             }
             R.id.home_tool_bar_status -> {
+                startFoodStatusDisplayActivity(this)
                 showToast("Status is Clicked")
                 true
             }

@@ -55,6 +55,18 @@
                 android:name=".view.activity.UploadOverviewActivity">
         </activity>
 
+        <activity
+                android:name=".view.activity.ChefWaiterActivity">
+        </activity>
+
+        <activity
+                android:name=".view.activity.ManagerActivity">
+        </activity>
+
+        <activity
+                android:name=".view.activity.FoodStatusDisplayActivity">
+        </activity>
+
     </application>
 
 </manifest>

@@ -18,8 +18,8 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.foodorder.order.R
-import com.foodorder.order.di.component.HomeActivityComponent
-import com.foodorder.order.di.module.HomeActivityModule
+import com.foodorder.order.di.component.activity.HomeActivityComponent
+import com.foodorder.order.di.module.activity.HomeActivityModule
 import com.foodorder.order.model.data.*
 import com.foodorder.order.model.data.InternalStatusConfiguration.getLoginUserEmail
 import com.foodorder.order.model.data.Phase.AUTH_LOGIN

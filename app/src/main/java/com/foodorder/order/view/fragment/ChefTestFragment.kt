@@ -3,14 +3,14 @@ package com.foodorder.order.view.fragment
 import android.os.Bundle
 import android.view.View
 import com.foodorder.order.R
-import com.foodorder.order.model.data.SectionFragmentGuest
+import com.foodorder.order.model.data.SectionFragmentChef
 import com.foodorder.order.viewmodel.HomeViewModel
 
-class WelcomeFrag : BaseFragment() {
+class ChefTestFragment : BaseFragment() {
 
     companion object {
-        fun newInstance(param: SectionFragmentGuest): BaseFragment {
-            val it = WelcomeFrag()
+        fun newInstance(param: SectionFragmentChef): BaseFragment {
+            val it = ChefTestFragment()
             val args = Bundle().apply {
 
             }

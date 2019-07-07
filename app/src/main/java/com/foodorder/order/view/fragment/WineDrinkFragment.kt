@@ -9,7 +9,7 @@ import com.foodorder.order.R
 import com.foodorder.order.model.data.GlideApp
 import com.foodorder.order.model.data.GlideRequests
 import com.foodorder.order.model.data.SectionFragmentGuest
-import com.foodorder.order.view.activity.BaseRecyclerView
+import com.foodorder.order.view.activity.BaseFirebaseRecyclerView
 import com.foodorder.order.view.adapter.FoodDisplayItemAdapter
 import com.foodorder.order.view.adapter.FoodDisplayItemClick
 import com.foodorder.order.view.adapter.FoodDisplayItemHolder
@@ -17,8 +17,8 @@ import com.foodorder.order.view.adapter.OverviewFoodItem
 import com.foodorder.order.viewmodel.HomeViewModel
 import com.google.firebase.firestore.Query
 
-class DessertFrag : BaseFragment(),
-    BaseRecyclerView<FoodDisplayItemHolder, FoodDisplayItemAdapter>,
+class WineDrinkFragment : BaseFragment(),
+    BaseFirebaseRecyclerView<FoodDisplayItemHolder, FoodDisplayItemAdapter>,
     FoodDisplayItemClick {
 
     override lateinit var mRecyclerView: RecyclerView
@@ -26,7 +26,7 @@ class DessertFrag : BaseFragment(),
 
     companion object {
         fun newInstance(param: SectionFragmentGuest): BaseFragment {
-            val it = DessertFrag()
+            val it = WineDrinkFragment()
             val args = Bundle().apply {
 
             }
@@ -59,7 +59,7 @@ class DessertFrag : BaseFragment(),
     }
 
     override fun providedFragmentLayoutId(): Int {
-        return R.layout.dessert_layout
+        return R.layout.wine_drink_layout
     }
 
     private fun initRecycler() {
@@ -70,7 +70,7 @@ class DessertFrag : BaseFragment(),
     }
 
     override fun initRecyclerView(): RecyclerView {
-        return baseFragFindViewById(R.id.dessert_tab_layout)
+        return baseFragFindViewById(R.id.wine_drink_tab_layout)
     }
 
     override fun createRecyclerViewAdapter(

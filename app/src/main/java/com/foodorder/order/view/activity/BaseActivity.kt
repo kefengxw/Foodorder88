@@ -16,6 +16,7 @@ abstract class BaseActivity : AppCompatActivity() {//extends DaggerAppCompatActi
     protected val mBaseActivity: BaseActivity = this
     protected var mBaseGlide: GlideRequests? = null //can be re-write by sub-activity if needed
     //val mActivityCoroutineScope = MainScope()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //ButterKnife or improve the Dagger2, just reserved for expand.

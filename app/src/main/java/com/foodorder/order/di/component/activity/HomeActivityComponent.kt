@@ -1,15 +1,21 @@
-package com.foodorder.order.di.component
+package com.foodorder.order.di.component.activity
 
-import com.foodorder.order.di.module.HomeActivityModule
+import com.foodorder.order.di.module.FragmentModule
+import com.foodorder.order.di.module.activity.HomeActivityModule
 import com.foodorder.order.di.scope.ActivityScope
 import com.foodorder.order.view.activity.HomeActivity
 import dagger.Subcomponent
 
 @ActivityScope
-@Subcomponent(modules = [HomeActivityModule::class])
+@Subcomponent(
+    modules = [
+        HomeActivityModule::class,
+        FragmentModule::class
+    ]
+)
 interface HomeActivityComponent {
 
-    fun inject(homeActivity: HomeActivity)
+    fun inject(activity: HomeActivity)
 
     //Activity getActivity();
     //Context getCountryActivityContext();
@@ -20,7 +26,7 @@ interface HomeActivityComponent {
         //@BindsInstance
         //activity(Activity activity): Builder    //same as an module with parameter, can simplify the ActivityModule
 
-        fun homeActivityModule(homeActivityModule: HomeActivityModule): Builder //this is more understandable
+        fun homeActivityModule(activityModule: HomeActivityModule): Builder //this is more understandable
         fun build(): HomeActivityComponent        //only need this for sub component, that's all
     }
 }

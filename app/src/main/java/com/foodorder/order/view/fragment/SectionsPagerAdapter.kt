@@ -40,10 +40,10 @@ class SectionsPagerAdapter(fm: FragmentManager, val mFabtn: FloatingActionButton
     private fun getManagerBaseFragment(position: Int): BaseFragment {
         return when (position) {
             SECTION_SUMMARY_DAY1_FRAG1.ordinal -> {
-                ManagerFrag.newInstance(SECTION_SUMMARY_DAY1_FRAG1)
+                ManagerTestFragment.newInstance(SECTION_SUMMARY_DAY1_FRAG1)
             }
             else -> {//SECTION_SUMMARY_DAY2_FRAG2
-                ManagerFrag.newInstance(SECTION_SUMMARY_DAY2_FRAG2)
+                ManagerTestFragment.newInstance(SECTION_SUMMARY_DAY2_FRAG2)
             }
         }
     }
@@ -51,13 +51,13 @@ class SectionsPagerAdapter(fm: FragmentManager, val mFabtn: FloatingActionButton
     private fun getChefBaseFragment(position: Int): BaseFragment {
         return when (position) {
             SECTION_COOKING_DAY1_FRAG1.ordinal -> {
-                ChefFrag.newInstance(SECTION_COOKING_DAY1_FRAG1)
+                ChefTestFragment.newInstance(SECTION_COOKING_DAY1_FRAG1)
             }
             SECTION_COOKING_DAY2_FRAG2.ordinal -> {
-                ChefFrag.newInstance(SECTION_COOKING_DAY2_FRAG2)
+                ChefTestFragment.newInstance(SECTION_COOKING_DAY2_FRAG2)
             }
             else -> {//SECTION_COOKING_DAY3_FRAG3
-                ChefFrag.newInstance(SECTION_COOKING_DAY3_FRAG3)//case SECTION_COOKING_DAY3_FRAG3:
+                ChefTestFragment.newInstance(SECTION_COOKING_DAY3_FRAG3)//case SECTION_COOKING_DAY3_FRAG3:
             }
         }
     }
@@ -65,25 +65,25 @@ class SectionsPagerAdapter(fm: FragmentManager, val mFabtn: FloatingActionButton
     private fun getGuestBaseFragment(position: Int): BaseFragment {
         return when (position) {
             SECTION_WELCOME_FRAG1.ordinal -> {
-                WelcomeFrag.newInstance(SECTION_WELCOME_FRAG1)
+                WelcomeFragment.newInstance(SECTION_WELCOME_FRAG1)
             }
             SECTION_SPECIAL_FRAG2.ordinal -> {
-                SpecialFrag.newInstance(SECTION_SPECIAL_FRAG2)
+                SpecialFragment.newInstance(SECTION_SPECIAL_FRAG2)
             }
             SECTION_STARTER_FRAG3.ordinal -> {
-                StarterFrag.newInstance(SECTION_STARTER_FRAG3)
+                StarterFragment.newInstance(SECTION_STARTER_FRAG3)
             }
             SECTION_MAIN_FRAG4.ordinal -> {
-                MainCourseFrag.newInstance(SECTION_MAIN_FRAG4)
+                MainCourseFragment.newInstance(SECTION_MAIN_FRAG4)
             }
             SECTION_DESSERT_FRAG5.ordinal -> {
-                DessertFrag.newInstance(SECTION_DESSERT_FRAG5)
+                DessertFragment.newInstance(SECTION_DESSERT_FRAG5)
             }
             SECTION_WINE_FRAG6.ordinal -> {
-                WineDrinkFrag.newInstance(SECTION_WINE_FRAG6)
+                WineDrinkFragment.newInstance(SECTION_WINE_FRAG6)
             }
             else -> {//case SECTION_CONCEPT_FRAG7:
-                ConceptFrag.newInstance(SECTION_CONCEPT_FRAG7)
+                ConceptFragment.newInstance(SECTION_CONCEPT_FRAG7)
             }
         }
     }

@@ -9,7 +9,7 @@ import com.foodorder.order.view.activity.EditProfileActivity.Companion.startEdit
 import com.foodorder.order.view.activity.UploadOverviewActivity.Companion.startUploadOverviewActivity
 import com.foodorder.order.view.componet.LogoutDialog.Companion.startLogoutDialog
 
-class SettingFrag : PreferenceFragmentCompat() {
+class SettingFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.setting_preferences, rootKey)

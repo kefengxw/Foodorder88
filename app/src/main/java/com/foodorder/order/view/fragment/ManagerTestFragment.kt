@@ -3,14 +3,14 @@ package com.foodorder.order.view.fragment
 import android.os.Bundle
 import android.view.View
 import com.foodorder.order.R
-import com.foodorder.order.model.data.SectionFragmentGuest
+import com.foodorder.order.model.data.SectionFragmentManager
 import com.foodorder.order.viewmodel.HomeViewModel
 
-class ConceptFrag : BaseFragment() {
+class ManagerTestFragment : BaseFragment() {
 
     companion object {
-        fun newInstance(param: SectionFragmentGuest): BaseFragment {
-            val it = ConceptFrag()
+        fun newInstance(param: SectionFragmentManager): BaseFragment {
+            val it = ManagerTestFragment()
             val args = Bundle().apply {
 
             }
@@ -43,6 +43,6 @@ class ConceptFrag : BaseFragment() {
     }
 
     override fun providedFragmentLayoutId(): Int {
-        return R.layout.concept_layout
+        return R.layout.welcome_layout
     }
 }

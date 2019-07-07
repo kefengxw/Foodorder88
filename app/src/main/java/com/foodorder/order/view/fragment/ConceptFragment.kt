@@ -3,15 +3,14 @@ package com.foodorder.order.view.fragment
 import android.os.Bundle
 import android.view.View
 import com.foodorder.order.R
-import com.foodorder.order.model.data.InternalDataConfiguration.getItemNumberSpecial
 import com.foodorder.order.model.data.SectionFragmentGuest
 import com.foodorder.order.viewmodel.HomeViewModel
 
-class SpecialFrag : BaseFragmentWithItemOrder() {
+class ConceptFragment : BaseFragment() {
 
     companion object {
         fun newInstance(param: SectionFragmentGuest): BaseFragment {
-            val it = SpecialFrag()
+            val it = ConceptFragment()
             val args = Bundle().apply {
 
             }
@@ -44,23 +43,6 @@ class SpecialFrag : BaseFragmentWithItemOrder() {
     }
 
     override fun providedFragmentLayoutId(): Int {
-        return R.layout.special_layout
-    }
-
-    override fun ProvidedItemArrayId(): IntArray {
-        return intArrayOf(
-            R.id.special_order_item_ov1,
-            R.id.special_order_item_ov2,
-            R.id.special_order_item_ov3,
-            R.id.special_order_item_ov4,
-            R.id.special_order_item_ov5,
-            R.id.special_order_item_ov6,
-            R.id.special_order_item_ov7,
-            R.id.special_order_item_ov8
-        )
-    }
-
-    override fun ProvidedItemNumber(): Int {
-        return getItemNumberSpecial()
+        return R.layout.concept_layout
     }
 }

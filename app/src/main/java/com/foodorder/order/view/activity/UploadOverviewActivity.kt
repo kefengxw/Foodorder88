@@ -20,7 +20,7 @@ import com.foodorder.order.viewmodel.UploadOverviewModel
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.upload_overview_activity.*
 
-class UploadOverviewActivity : BaseActivity(), BaseRecyclerView<FoodUploadItemHolder, FoodUploadItemAdapter> {
+class UploadOverviewActivity : BaseActivity(), BaseFirebaseRecyclerView<FoodUploadItemHolder, FoodUploadItemAdapter> {
 
     private lateinit var mViewModel: UploadOverviewModel
     private lateinit var mAddBtn: UnifiedButton

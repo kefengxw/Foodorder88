@@ -14,7 +14,7 @@ import com.foodorder.order.view.adapter.OverviewFoodItem
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
 
-interface BaseRecyclerView<HolderT : BaseItemHolder, AdapterT : BaseItemAdapter<HolderT>> {
+interface BaseFirebaseRecyclerView<HolderT : BaseItemHolder, AdapterT : BaseItemAdapter<HolderT>> {
 
     //can be improved more, use <T> to replace OverviewFoodItem
     var mRecyclerView: RecyclerView

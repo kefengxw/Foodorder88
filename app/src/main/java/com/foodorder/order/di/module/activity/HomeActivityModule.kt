@@ -1,4 +1,4 @@
-package com.foodorder.order.di.module
+package com.foodorder.order.di.module.activity
 
 import com.foodorder.order.di.scope.ActivityScope
 import com.foodorder.order.model.data.GlideApp

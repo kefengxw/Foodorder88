@@ -9,7 +9,7 @@ import com.foodorder.order.R
 import com.foodorder.order.model.data.GlideApp
 import com.foodorder.order.model.data.GlideRequests
 import com.foodorder.order.model.data.SectionFragmentGuest
-import com.foodorder.order.view.activity.BaseRecyclerView
+import com.foodorder.order.view.activity.BaseFirebaseRecyclerView
 import com.foodorder.order.view.adapter.FoodDisplayItemAdapter
 import com.foodorder.order.view.adapter.FoodDisplayItemClick
 import com.foodorder.order.view.adapter.FoodDisplayItemHolder
@@ -17,8 +17,8 @@ import com.foodorder.order.view.adapter.OverviewFoodItem
 import com.foodorder.order.viewmodel.HomeViewModel
 import com.google.firebase.firestore.Query
 
-class MainCourseFrag : BaseFragment(),
-    BaseRecyclerView<FoodDisplayItemHolder, FoodDisplayItemAdapter>,
+class MainCourseFragment : BaseFragment(),
+    BaseFirebaseRecyclerView<FoodDisplayItemHolder, FoodDisplayItemAdapter>,
     FoodDisplayItemClick {
 
     override lateinit var mRecyclerView: RecyclerView
@@ -26,7 +26,7 @@ class MainCourseFrag : BaseFragment(),
 
     companion object {
         fun newInstance(param: SectionFragmentGuest): BaseFragment {
-            val it = MainCourseFrag()
+            val it = MainCourseFragment()
             val args = Bundle().apply {
 
             }

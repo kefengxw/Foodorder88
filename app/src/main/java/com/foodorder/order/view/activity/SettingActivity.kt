@@ -12,7 +12,7 @@ import com.foodorder.order.util.SecuritySharedPreferencesFactory
 import com.foodorder.order.util.UtilInternalFunction.saveUserDataForNextOpen
 import com.foodorder.order.view.activity.InitialActivity.Companion.startInitialActivity
 import com.foodorder.order.view.componet.LogoutDialog
-import com.foodorder.order.view.fragment.SettingFrag
+import com.foodorder.order.view.fragment.SettingFragment
 import com.foodorder.order.viewmodel.SettingViewModel
 import kotlinx.android.synthetic.main.setting_activity.*
 
@@ -68,7 +68,7 @@ class SettingActivity : BaseActivity(),
     override fun initLocalProcess() {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.setting, SettingFrag())
+            .replace(R.id.setting, SettingFragment())
             .commit()
     }
 

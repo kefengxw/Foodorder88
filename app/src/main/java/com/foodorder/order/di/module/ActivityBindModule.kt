@@ -20,4 +20,4 @@ import dagger.Module
         RegisterActivityComponent::class
     ]
 )//if more activity, please add here
-class ActivityModule//Only designed for sub-component
+class ActivityBindModule//Only designed for sub-component

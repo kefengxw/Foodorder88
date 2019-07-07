@@ -108,7 +108,7 @@ class FirebaseCloudDbRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAu
             handleUpdateWithoutImage(caseKey, remote, result)
         } else if ((caseKey.imageLocalAddr != "") && (caseKey.imageRemoteAddr == "")) {
             //case 1: use local image, directly
-            if (caseKey.uniqueId == ""){//first time to upload User Profiile
+            if (caseKey.uniqueId == "") {//first time to upload User Profiile
                 caseKey.uniqueId = getUniqueIdString()//unique name for this data at firebase
             }
             handleUpdateWithImage(caseKey, remote, result)

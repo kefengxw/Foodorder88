@@ -10,7 +10,6 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.Source
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
@@ -68,7 +67,7 @@ class FirebaseCloudQueryRepository(/*val mEx: AppExecutors, val mFbAuth: Firebas
         initResult(result)
 
         val docRef = mDocUser.document("user")
-        val x= docRef.get(/*Source.SERVER*/)
+        val x = docRef.get(/*Source.SERVER*/)
             .addOnSuccessListener {
                 val user = it.toObject(GetUserDataUnitRemoteFb::class.java)
                 //here user could be null or not-null, be careful, if it is null, than it is the first time

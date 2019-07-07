@@ -1,7 +1,7 @@
 package com.foodorder.order.di.component.activity
 
+import com.foodorder.order.di.module.SettingFragmentBindModule
 import com.foodorder.order.di.module.activity.SettingActivityModule
-import com.foodorder.order.di.module.fragment.SettingFragmentModule
 import com.foodorder.order.di.scope.ActivityScope
 import com.foodorder.order.view.activity.SettingActivity
 import dagger.Subcomponent
@@ -9,8 +9,8 @@ import dagger.Subcomponent
 @ActivityScope
 @Subcomponent(
     modules = [
-        SettingActivityModule::class
-        //SettingFragmentModule::class
+        SettingActivityModule::class,
+        SettingFragmentBindModule::class
     ]
 )
 interface SettingActivityComponent {

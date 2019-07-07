@@ -1,6 +1,6 @@
 package com.foodorder.order.di.component.activity
 
-import com.foodorder.order.di.module.FragmentModule
+import com.foodorder.order.di.module.HomeFragmentBindModule
 import com.foodorder.order.di.module.activity.HomeActivityModule
 import com.foodorder.order.di.scope.ActivityScope
 import com.foodorder.order.view.activity.HomeActivity
@@ -10,7 +10,7 @@ import dagger.Subcomponent
 @Subcomponent(
     modules = [
         HomeActivityModule::class,
-        FragmentModule::class
+        HomeFragmentBindModule::class
     ]
 )
 interface HomeActivityComponent {

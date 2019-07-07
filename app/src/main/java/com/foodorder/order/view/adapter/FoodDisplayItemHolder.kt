@@ -4,9 +4,7 @@ import android.view.View
 import com.firebase.ui.firestore.ObservableSnapshotArray
 import com.foodorder.order.R
 import com.foodorder.order.model.data.GlideRequests
-import com.foodorder.order.view.componet.UnifiedButton
 import com.foodorder.order.view.componet.UnifiedImageView
-import com.foodorder.order.view.componet.UnifiedTextView
 
 class FoodDisplayItemHolder(
     itemView: View,

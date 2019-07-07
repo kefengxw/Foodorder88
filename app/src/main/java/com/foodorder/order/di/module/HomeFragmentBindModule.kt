@@ -17,4 +17,4 @@ import dagger.Module
         ManagerTestFragmentComponent::class
     ]
 )//if more activity, please add here
-class FragmentModule//Only designed for sub-component
+class HomeFragmentBindModule//Only designed for sub-component

@@ -6,13 +6,15 @@ import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.PagedList
-import com.foodorder.order.model.data.*
+import com.foodorder.order.model.data.InternalDataConfiguration
+import com.foodorder.order.model.data.NetworkState
+import com.foodorder.order.model.data.Resource
+import com.foodorder.order.model.data.ResourceListing
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepository
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepositoryFactory
 import com.foodorder.order.model.paging.RemoteDataPageRepository
 import com.foodorder.order.model.repository.DataRepository
 import com.foodorder.order.model.repository.DisplayItem
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
 class HomeViewModel(app: Application) : BaseViewModelWithLogin(app) {

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.widget.Toolbar
 import com.foodorder.order.R
-import kotlinx.android.synthetic.main.about_activity.*
 import kotlinx.android.synthetic.main.chef_waiter_activity.*
 
 

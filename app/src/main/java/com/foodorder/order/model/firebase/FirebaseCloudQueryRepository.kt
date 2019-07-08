@@ -18,10 +18,10 @@ import io.reactivex.Flowable
 import io.reactivex.subjects.BehaviorSubject
 import org.joda.time.DateTimeUtils
 
-class FirebaseCloudQueryRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAuth*/) {
-
-    private val mFbCloudDatabase: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val mFbCloudStorage: FirebaseStorage = FirebaseStorage.getInstance()
+class FirebaseCloudQueryRepository(
+    val mFbCloudDatabase: FirebaseFirestore,
+    val mFbCloudStorage: FirebaseStorage
+) {
 
     private val mCoName: String = getLoginUserId()
 

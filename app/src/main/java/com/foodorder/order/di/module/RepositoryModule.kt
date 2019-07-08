@@ -21,27 +21,4 @@ class RepositoryModule {
     fun provideDataRepository(appEx: AppExecutors, remoteRepos: RemoteDataRepository): DataRepository {
         return DataRepositoryFactory.getInstanceRepos(appEx, remoteRepos)
     }
-
-    //需要进行移动到专门的文件中firebaseRepositoryModule
-    @Singleton
-    @Provides
-    fun provideFirebaseRepository(): FirebaseAuthRepository {
-        return FirebaseAuthRepositoryFactory.getInstanceFbAuthRepos()
-    }
-
-    //需要进行移动到专门的文件中SecuritySharedPreferencesFactory
-    @Singleton
-    @Provides
-    fun provideSharedPreferences(it: HomeApplication): SharedPreferences {
-        return SecuritySharedPreferencesFactory.getInstanceSSharedPre(it)
-    }
-
-//    class FirebaseModule {
-//
-//        @Singleton
-//        @Provides
-//        fun provideFirebaseAuth(): FirebaseAuth {
-//            return FirebaseAuth.getInstance()
-//        }
-//    }
 }

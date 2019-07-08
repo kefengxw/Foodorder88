@@ -13,18 +13,12 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.subjects.BehaviorSubject
 
-class FirebaseAuthRepository(/*val mEx: AppExecutors, val mFbAuth: FirebaseAuth*/) {
-
-    val mFbAuth: FirebaseAuth = FirebaseAuth.getInstance()
+class FirebaseAuthRepository(val mFbAuth: FirebaseAuth) {
 
     //待完成dagger之后添加这个功能
     //val mSharedPre = SecuritySharedPreferencesFactory.getInstanceSSharedPre()
     //val username = mSharedPre.getString("username", "")
     //val password = mSharedPre.getString("password", "")
-
-    /*  static FirebaseAuth
-        getInstance(FirebaseApp firebaseApp)
-        Returns an instance of this class corresponding to the given FirebaseApp instance.*/
 
     fun handleRegisterByEmail(email: String, password: String): Flowable<Resource<AuthResult>> {
 

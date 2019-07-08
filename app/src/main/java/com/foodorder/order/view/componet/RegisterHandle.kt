@@ -11,14 +11,13 @@ import com.foodorder.order.model.data.Phase
 import com.foodorder.order.model.data.Resource
 import com.foodorder.order.model.data.Status
 import com.foodorder.order.model.data.Status.*
-import com.foodorder.order.model.firebase.FirebaseCloudDbRepositoryFactory
-import com.foodorder.order.model.firebase.FirebaseCloudQueryRepositoryFactory
 import com.foodorder.order.util.SecuritySharedPreferencesFactory
 import com.foodorder.order.util.UtilInternalFunction.saveUserDataForNextOpen
 import com.foodorder.order.view.activity.BaseActivity
 import com.foodorder.order.view.activity.HomeActivity.Companion.startHomeActivity
 import com.foodorder.order.viewmodel.RegisterViewModel
 import com.google.firebase.auth.AuthResult
+import javax.inject.Inject
 
 class RegisterHandle(
     val mCtx: Context,
@@ -46,8 +45,13 @@ class RegisterHandle(
         initLocalProcess()
     }
 
-    private fun initInjector() {//TBD后续使用注入的方式进行
-        mSharedPre = SecuritySharedPreferencesFactory.getInstanceSSharedPre(mCtx.applicationContext)
+    fun initInjector() {
+
+    }
+
+    @Inject
+    fun setSharedPre(instance: SharedPreferences) {
+        mSharedPre = instance
     }
 
     private fun initViewModel() {
@@ -103,8 +107,8 @@ class RegisterHandle(
         }*/
         //初始化一次，后续可以考虑移动，但是好像应该放在这里
         //同时，在logout的时候，需要除去这个
-        //可以移动到进入setting页面的时候，才考虑启动这个Instance
-        FirebaseCloudDbRepositoryFactory.getInstanceFbCloudDbRepos()
-        FirebaseCloudQueryRepositoryFactory.getInstanceFbCloudQueryRepos()
+        //可以移动到进入setting页面的时候，才考虑启动这个Instance，没有意义，少量的instance可以在启动的时候进行加载
+        //FirebaseCloudDbRepositoryFactory.getInstanceFbCloudDbRepos()
+        //FirebaseCloudQueryRepositoryFactory.getInstanceFbCloudQueryRepos()
     }
 }

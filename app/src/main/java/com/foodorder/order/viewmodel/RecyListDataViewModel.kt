@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.Transformations.switchMap
 import androidx.paging.PagedList
+import com.foodorder.order.di.component.HomeApplicationComponent
 import com.foodorder.order.model.data.InternalDataConfiguration.shouldTakeToken
 import com.foodorder.order.model.data.NetworkState
 import com.foodorder.order.model.data.Resource
@@ -40,6 +41,10 @@ class RecyListDataViewModel(app: Application) : BaseViewModel(app) {
         doUserAuth()
         initFilterData()
     }*/
+
+    override fun initInjector(component: HomeApplicationComponent){
+
+    }
 
     override fun initViewModel(app: Application) {
         mReposData = mInstanceApp.mInstanceRepos

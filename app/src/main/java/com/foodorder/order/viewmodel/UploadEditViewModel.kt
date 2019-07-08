@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
+import com.foodorder.order.di.component.HomeApplicationComponent
 import com.foodorder.order.model.data.ReturnCode
 import com.foodorder.order.model.data.ReturnCode.*
 import com.foodorder.order.model.firebase.*
@@ -17,8 +18,12 @@ class UploadEditViewModel(app: Application) : BaseViewModel(app) {
     private var mUploadResult = MutableLiveData<FirebaseResult>()
     private lateinit var mSubscription: Subscription
 
+    override fun initInjector(component: HomeApplicationComponent){
+
+    }
+
     override fun initViewModel(app: Application) {
-        mFbCloudDbRepos = FirebaseCloudDbRepositoryFactory.getInstanceFbCloudDbRepos()
+        //mFbCloudDbRepos = mInstanceApp.mInstanceFbCloudDbRepos
     }
 
     fun inputCheck(it: DataUnitFb<FoodDataUnitRemoteFb>): ReturnCode { //可以返回不同的值，从而精确告诉客户错误类型

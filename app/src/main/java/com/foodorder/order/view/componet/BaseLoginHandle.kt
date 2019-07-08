@@ -103,9 +103,9 @@ abstract class BaseLoginHandle(
         }
         //初始化一次，后续可以考虑移动，但是好像应该放在这里
         //同时，在logout的时候，需要除去这个
-        //可以移动到进入setting页面的时候，才考虑启动这个Instance
-        FirebaseCloudDbRepositoryFactory.getInstanceFbCloudDbRepos()
-        FirebaseCloudQueryRepositoryFactory.getInstanceFbCloudQueryRepos()
+        //可以移动到进入setting页面的时候，才考虑启动这个Instance，没有意义，少量的instance可以在启动的时候进行加载
+        //FirebaseCloudDbRepositoryFactory.getInstanceFbCloudDbRepos()
+        //FirebaseCloudQueryRepositoryFactory.getInstanceFbCloudQueryRepos()
     }
 
     abstract fun provideProgressId(): Int

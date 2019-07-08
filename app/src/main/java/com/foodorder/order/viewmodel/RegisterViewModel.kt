@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
+import com.foodorder.order.di.component.HomeApplicationComponent
 import com.foodorder.order.model.data.Resource
 import com.foodorder.order.model.firebase.FirebaseAuthRepository
 import com.foodorder.order.view.componet.AuthData
@@ -18,6 +19,10 @@ class RegisterViewModel(app: Application) : BaseViewModel(app) {
     private var mRegisterResult = MutableLiveData<Resource<AuthResult>>()
     private var mUsername: String = ""
     private var mPassword: String = ""
+
+    override fun initInjector(component: HomeApplicationComponent){
+
+    }
 
     override fun initViewModel(app: Application) {
         mFbRepos = mInstanceApp.mInstanceFbAuthRepos

@@ -2,12 +2,13 @@ package com.foodorder.order.di.module
 
 import android.content.Context
 import com.foodorder.order.app.HomeApplication
+import com.foodorder.order.di.module.viewmodel.ViewModelModule
 import com.foodorder.order.model.data.AppExecutors
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [ViewModelModule::class])
 class HomeApplicationModule(private val mHomeApp: HomeApplication) {
 
     @Singleton

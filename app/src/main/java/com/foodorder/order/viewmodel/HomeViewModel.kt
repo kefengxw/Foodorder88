@@ -6,35 +6,49 @@ import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.PagedList
+import com.foodorder.order.di.component.HomeApplicationComponent
 import com.foodorder.order.model.data.InternalDataConfiguration
 import com.foodorder.order.model.data.NetworkState
 import com.foodorder.order.model.data.Resource
 import com.foodorder.order.model.data.ResourceListing
 import com.foodorder.order.model.firebase.FirebaseCloudDbRepository
-import com.foodorder.order.model.firebase.FirebaseCloudDbRepositoryFactory
 import com.foodorder.order.model.paging.RemoteDataPageRepository
 import com.foodorder.order.model.repository.DataRepository
 import com.foodorder.order.model.repository.DisplayItem
 import com.google.firebase.firestore.Query
+import javax.inject.Inject
 
-class HomeViewModel(app: Application) : BaseViewModelWithLogin(app) {
+//@Inject
+//constructor(private val repoRepository: RepoRepository)
 
-    private lateinit var mReposData: DataRepository
+class HomeViewModel @Inject constructor(app: Application) : BaseViewModelWithLogin(app) {
+    //    class HomeViewModel(app: Application) : BaseViewModelWithLogin(app) {
+    lateinit var mReposData: DataRepository
     private lateinit var mUserAuth: LiveData<Resource<String>>
-    private lateinit var mPageRepos: RemoteDataPageRepository
+    lateinit var mPageRepos: RemoteDataPageRepository
     private val mFilter = MutableLiveData<String>()
     private lateinit var mRemoteData: LiveData<ResourceListing<DisplayItem>>
     private lateinit var mResultData: LiveData<PagedList<DisplayItem>>
     private lateinit var mResultState: LiveData<NetworkState>
     private var mPrevLength = 0
-    private lateinit var mFbCloudDbRepos: FirebaseCloudDbRepository
+    lateinit var mFbCloudDbRepos: FirebaseCloudDbRepository
+
+    override fun initInjector(component: HomeApplicationComponent){
+        component.inject(this)
+    }
 
     override fun initSubViewModel(app: Application) {
+
         mReposData = mInstanceApp.mInstanceRepos
         mPageRepos = mInstanceApp.mInstancePageRepos
-        mFbCloudDbRepos = FirebaseCloudDbRepositoryFactory.getInstanceFbCloudDbRepos()
+        //mFbCloudDbRepos = mInstanceApp.mInstanceFbCloudDbRepos
         doUserAuth()
         initFilterData()
+    }
+
+    @Inject
+    fun setInstanceFbCloudDbRepos(instance: FirebaseCloudDbRepository) {
+        mFbCloudDbRepos = instance
     }
 
     private fun doUserAuth() {

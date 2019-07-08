@@ -3,10 +3,12 @@ package com.foodorder.order.view.componet
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import com.foodorder.order.R
+import com.foodorder.order.app.HomeApplication
 import com.foodorder.order.model.data.Resource
 import com.foodorder.order.view.activity.BaseActivity
 import com.foodorder.order.viewmodel.BaseViewModelWithLogin
 import com.google.firebase.auth.AuthResult
+import javax.inject.Inject
 
 class HomeLoginHandle(
     ctx: Context,
@@ -28,6 +30,12 @@ class HomeLoginHandle(
     }
 
     override fun doActionOnLoginSuccess(it: Resource<AuthResult>) {
+
+
+        val x = mCtx.applicationContext as HomeApplication
+
+        x.updateData()
+
 
     }
 }

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
+import com.foodorder.order.di.component.HomeApplicationComponent
 import com.foodorder.order.model.data.ReturnCode
 import com.foodorder.order.model.data.ReturnCode.*
 import com.foodorder.order.model.firebase.*
@@ -22,8 +23,12 @@ class EditProfileViewModel(app: Application) : BaseViewModel(app) {
     private lateinit var mSubscriptionQuery: Subscription
 
     override fun initViewModel(app: Application) {
-        mFbCloudDbRepos = FirebaseCloudDbRepositoryFactory.getInstanceFbCloudDbRepos()
-        mFbCloudQueryRepos = FirebaseCloudQueryRepositoryFactory.getInstanceFbCloudQueryRepos()
+        //mFbCloudDbRepos = mInstanceApp.mInstanceFbCloudDbRepos
+        //mFbCloudQueryRepos = mInstanceApp.mInstanceFbCloudQueryRepos
+    }
+
+    override fun initInjector(component: HomeApplicationComponent){
+
     }
 
     fun inputCheck(it: DataUnitFb<UserDataUnitRemoteFb>): ReturnCode { //可以返回不同的值，从而精确告诉客户错误类型

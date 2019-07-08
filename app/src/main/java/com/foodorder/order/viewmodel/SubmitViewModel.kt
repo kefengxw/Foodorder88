@@ -1,4 +1,15 @@
 package com.foodorder.order.viewmodel
 
-class SubmitViewModel {
+import android.app.Application
+import com.foodorder.order.di.component.HomeApplicationComponent
+
+class SubmitViewModel(app: Application) : BaseViewModel(app) {
+
+    override fun initInjector(component: HomeApplicationComponent){
+
+    }
+
+    override fun initViewModel(app: Application) {
+
+    }
 }
